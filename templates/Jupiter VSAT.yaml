@@ -1,0 +1,694 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 891942b0faca46b4a63f8f6012f617b5
+    name: HughesJupiterVSATs
+  - uuid: 7df96b18c230490a9a0a9e2307226338
+    name: Templates
+  templates:
+  - uuid: ed593575441143d3bc29ff3b2f24b241
+    template: Jupiter VSAT
+    name: Jupiter VSAT
+    description: |
+      Disable API: Oct 20.
+      Disable CPU/MEM Discovery Nov 01.
+    templates:
+    - name: Vsat by SNMP
+    groups:
+    - name: HughesJupiterVSATs
+    - name: Templates
+    items:
+    - uuid: 4d712d71a2904c13bba7ab694a5b2e34
+      name: bitsRxPerSec
+      type: CALCULATED
+      key: bitsRxPerSec
+      history: 30d
+      value_type: FLOAT
+      params: abs(change(//bytesRxSinceAssoc))*8/60
+    - uuid: 97e3eea904984a80a5cf0918731ef509
+      name: bitsTxPerSec
+      type: CALCULATED
+      key: bitsTxPerSec
+      history: 30d
+      value_type: FLOAT
+      params: abs(change(//bytesTxSinceAssoc))*8/60
+    - uuid: 1639bed2c56a4e16980bae4ed9171002
+      name: bytesRxPerMin
+      type: CALCULATED
+      key: bytesRxPerMin
+      delay: 60s
+      history: 30d
+      params: abs(change(//bytesRxSinceAssoc))
+    - uuid: 3943ced460404738865d154cb2c4b72a
+      name: bytesRxSinceAssoc
+      type: DEPENDENT
+      key: bytesRxSinceAssoc
+      delay: '0'
+      history: 90d
+      units: bytes
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.bytesRxSinceAssoc
+      master_item:
+        key: http_VsatStatus
+    - uuid: 4090afe9a74b4d279f7454f0d3888e05
+      name: bytesTxPermin
+      type: CALCULATED
+      key: bytesTxPermin
+      delay: 60s
+      history: 30d
+      params: abs(change(//bytesTxSinceAssoc))
+    - uuid: 0bb1786da1764159b7a432559eec73e5
+      name: bytesTxSinceAssoc
+      type: DEPENDENT
+      key: bytesTxSinceAssoc
+      delay: '0'
+      history: 90d
+      units: bytes
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.bytesTxSinceAssoc
+      master_item:
+        key: http_VsatStatus
+    - uuid: b663a332bd6545ff8a3037a53d86e3c4
+      name: SW Version
+      type: DEPENDENT
+      key: currentSWVersionId
+      delay: '0'
+      history: 90d
+      value_type: CHAR
+      trends: '0'
+      status: DISABLED
+      inventory_link: SOFTWARE
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.currentSWVersionId
+      master_item:
+        key: VsatOVTInfo
+      tags:
+      - tag: Application
+        value: SoftVer
+    - uuid: b1fe7c2886024e0aafac14e87a96fe64
+      name: downlinkEsNo
+      type: DEPENDENT
+      key: downlinkEsNo
+      delay: '0'
+      history: 90d
+      status: DISABLED
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.downlinkEsNo
+      master_item:
+        key: VsatOVTInfo
+      tags:
+      - tag: Application
+        value: VsatdownlinkEsNo
+    - uuid: 2c7af2d0c38e491e8c894078b7023edf
+      name: downlinkEsno
+      type: DEPENDENT
+      key: downlinkEsno
+      delay: '0'
+      history: 90d
+      status: DISABLED
+      units: (0.1 dB)
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.downlinkEsno
+      master_item:
+        key: http_VsatStatus
+      tags:
+      - tag: Application
+        value: downlinkEsNo
+    - uuid: e7bb235aa2fa435097f005af12b691eb
+      name: downlinkEsNoNEW
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.12.10.1.15.0
+      key: downlinkEsNoNEW
+      delay: 5m
+      history: 90d
+      units: dB
+      description: |
+        Description:
+        This is the current downlink signal to noise ratio as received by the Terminal.  This is the last snapshot value as sampled by the Terminal.
+        Units: 10ths of dB
+        Source: Determined by the device
+      inventory_link: SOFTWARE_APP_C
+      preprocessing:
+      - type: MULTIPLIER
+        parameters:
+        - '0.1'
+      tags:
+      - tag: Application
+        value: General
+    - uuid: e63f67fb27c34c059877045143c6ee8a
+      name: downlinkModcod
+      type: DEPENDENT
+      key: downlinkModcod
+      delay: '0'
+      history: 90d
+      value_type: CHAR
+      trends: '0'
+      status: DISABLED
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.downlinkModcod
+      master_item:
+        key: VsatOVTInfo
+      tags:
+      - tag: Application
+        value: VsatdownlinkModcod
+    - uuid: ab4f4b2ed145488db34cc2590090c481
+      name: esn
+      type: DEPENDENT
+      key: esn
+      delay: '0'
+      history: 90d
+      value_type: CHAR
+      trends: '0'
+      status: DISABLED
+      inventory_link: SERIALNO_A
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.esn
+      master_item:
+        key: VsatOVTInfo
+      tags:
+      - tag: Application
+        value: Vsatesn
+      triggers:
+      - uuid: 003771e51ffc4b3fb3538dad3c5ec5bd
+        expression: (last(/Jupiter VSAT/esn,#1)<>last(/Jupiter VSAT/esn,#2))=1 and
+          length(last(/Jupiter VSAT/esn))>0
+        name: Esn Changes
+        priority: INFO
+        description: ack to close
+        manual_close: YES
+    - uuid: 35455bf928ed4a498f5679374b31656e
+      name: hardwareType
+      type: DEPENDENT
+      key: hardwareType
+      delay: '0'
+      history: 90d
+      value_type: TEXT
+      trends: '0'
+      status: DISABLED
+      inventory_link: MODEL
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.hardwareType
+      master_item:
+        key: VsatOVTInfo
+      tags:
+      - tag: Application
+        value: VsathardwareType
+    - uuid: 76a4768490e84141b8a9511d169b21e6
+      name: ApiJovianVsatStatusInfo
+      type: HTTP_AGENT
+      key: http_VsatStatus
+      delay: 5m
+      history: 9d
+      value_type: TEXT
+      trends: '0'
+      status: DISABLED
+      timeout: 30s
+      url: https://jovian.nms.jupiterops.net/NMSAPI/vsats/{HOST.NAME}/status
+      follow_redirects: NO
+      headers:
+      - name: Content-Type
+        value: application/json
+      - name: Authorization
+        value: '{$JOVIAN_API}'
+    - uuid: b7d8ac1066a64621bbce4e166f7dd437
+      name: outrouteCfAlternateFrequency
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.303.3.3.45.12.2.1.10.0
+      key: outrouteCfAlternateFrequency
+      delay: 15m
+      history: 90d
+      value_type: FLOAT
+      status: DISABLED
+      tags:
+      - tag: Application
+        value: VsatoutrouteAltFreq
+    - uuid: 81d9ae797af24d20b68d2ac22e9cb231
+      name: outrouteCfAlternateSymbolRate
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.303.3.3.45.12.2.1.9.0
+      key: outrouteCfAlternateSymbolRate
+      delay: 15m
+      history: 90d
+      value_type: FLOAT
+      status: DISABLED
+      description: alternate outrout symbol rate
+      tags:
+      - tag: Application
+        value: VsatOutrouteAltSymRate
+    - uuid: c4e91a9e9026422f9e33e0d40fd77e0e
+      name: Uplink Stream Error Rate
+      type: CALCULATED
+      key: stream.error.rate
+      delay: 5m
+      history: 90d
+      value_type: FLOAT
+      units: '%'
+      params: last(//uplink.txStStreamNAK) /(last(//uplink.txStStreamAck)+last(//uplink.txStStreamNAK))
+        * 100
+    - uuid: cb885a05b847497a852bc8ea72e34068
+      name: Terminal Avg Temp
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.303.3.3.45.12.3.8.7.0
+      key: terminal.avg.temp.stat
+      history: 90d
+      value_type: FLOAT
+      units: °C
+      description: average temp for terminal
+      preprocessing:
+      - type: JAVASCRIPT
+        parameters:
+        - return(Math.round(((value - 32) * 0.55555556 ) * 100 ) / 100 )
+    - uuid: 327c5b1790e946099d74ce6ec23786d2
+      name: txStatusSymcod
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.303.3.3.45.12.1.3.1.0
+      key: txStatusSymcod
+      delay: 5m
+      history: 90d
+      trends: '0'
+      tags:
+      - tag: Application
+        value: UplinkSymcod
+    - uuid: edbbfca93cee49cda926a97b510ec451
+      name: Terminal Uplink txStStreamAck
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.303.3.3.45.12.1.7.1.0
+      key: uplink.txStStreamAck
+      delay: 5m
+      history: 90d
+      description: Stream ACK
+    - uuid: 802d0bec159e49c0a5ca0e3a63c10be0
+      name: Terminal Uplink txStStreamNAK
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.303.3.3.45.12.1.7.2.0
+      key: uplink.txStStreamNAK
+      delay: 5m
+      history: 90d
+      description: Stream Nak
+    - uuid: 4498f00ec975411db8bf78cc6723cf73
+      name: uplinkCodeRate
+      type: DEPENDENT
+      key: uplinkCodeRate
+      delay: '0'
+      history: 90d
+      value_type: FLOAT
+      status: DISABLED
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.uplinkCodeRate
+      master_item:
+        key: VsatOVTInfo
+      tags:
+      - tag: Application
+        value: VsatuplinkCodeRate
+    - uuid: 65a4a7005b3146c59ede8c8b8ff5125d
+      name: uplinkEsNo
+      type: DEPENDENT
+      key: uplinkEsNo
+      delay: '0'
+      history: 90d
+      status: DISABLED
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.uplinkEsNo
+      master_item:
+        key: VsatOVTInfo
+      tags:
+      - tag: Application
+        value: VsatUplinkEsNo
+    - uuid: ce075717c1d04dbb8dea251b01afa7e2
+      name: uplinkEsno
+      type: DEPENDENT
+      key: uplinkEsno
+      delay: '0'
+      history: 90d
+      status: DISABLED
+      units: (0.1 dB)
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.uplinkEsno
+      master_item:
+        key: http_VsatStatus
+      tags:
+      - tag: Application
+        value: UplinkEsNo
+    - uuid: 510529ab6cdb45ed9b403d0c59c64b62
+      name: uplinkEsNoNEW
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.12.10.1.16.0
+      key: uplinkEsNoNEW
+      delay: 5m
+      history: 90d
+      units: dB
+      description: |
+        Description:
+        This is the current uplink signal to noise ratio of the Terminal's transmissions.  This is the last snapshot value as sampled by the Terminal.
+        Units: 10ths of dB
+        Source: Determined by the device
+      inventory_link: SOFTWARE_APP_B
+      preprocessing:
+      - type: MULTIPLIER
+        parameters:
+        - '0.1'
+      tags:
+      - tag: Application
+        value: General
+    - uuid: 6e59a7a62a684bbebb599986adeac12a
+      name: uplinkPowerBackoff
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.12.10.1.17.0
+      key: uplinkPowerBackoff
+      delay: 5m
+      history: 30d
+      units: dB
+      preprocessing:
+      - type: MULTIPLIER
+        parameters:
+        - '0.1'
+      tags:
+      - tag: Application
+        value: General
+    - uuid: 5e9c40ee779c4431958168e0db1695b5
+      name: uplinkSymbolRate
+      type: DEPENDENT
+      key: uplinkSymbolRate
+      delay: '0'
+      history: 90d
+      value_type: FLOAT
+      status: DISABLED
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.uplinkSymbolRate
+      master_item:
+        key: VsatOVTInfo
+      tags:
+      - tag: Application
+        value: VsatuplinkSymbolRate
+    - uuid: 32f6b274abfe474098b8860dfa53f2c5
+      name: FallbackVersion
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.12.3.5.3.0
+      key: VsatfallbackSwVersion
+      delay: 1d
+      history: 90d
+      value_type: CHAR
+      trends: '0'
+      status: DISABLED
+      inventory_link: SOFTWARE_APP_A
+      tags:
+      - tag: Application
+        value: VsatfallbackSwVersion
+    - uuid: aff624f7bdb847e6af37fa04d80a5546
+      name: Vsatlatitude
+      type: DEPENDENT
+      key: Vsatlatitude
+      delay: '0'
+      history: 90d
+      value_type: CHAR
+      trends: '0'
+      status: DISABLED
+      inventory_link: LOCATION_LAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.latitude
+      master_item:
+        key: VsatOVTInfo
+      tags:
+      - tag: Application
+        value: Vsatlatitude
+    - uuid: b818e7c3eb1743f1bfe6ce791ba79d6a
+      name: VSATlongitude
+      type: DEPENDENT
+      key: Vsatlongitude
+      delay: '0'
+      history: 90d
+      value_type: TEXT
+      trends: '0'
+      status: DISABLED
+      inventory_link: LOCATION_LON
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.longitude
+      master_item:
+        key: VsatOVTInfo
+    - uuid: 0f2a25f08a7b47698fb29e29623bb575
+      name: ApiJovianVsatOVTInfo
+      type: HTTP_AGENT
+      key: VsatOVTInfo
+      delay: 5m
+      history: 9d
+      value_type: TEXT
+      trends: '0'
+      status: DISABLED
+      timeout: 30s
+      url: https://jovian.nms.jupiterops.net/NMSAPI/vsats/{HOST.NAME}/stats/ovt
+      follow_redirects: NO
+      headers:
+      - name: Content-Type
+        value: application/json
+      - name: Authorization
+        value: '{$JOVIAN_API}'
+    macros:
+    - macro: '{$ICMP_RESPONSE_TIME_WARN}'
+      value: '1.1'
+    dashboards:
+    - uuid: 17b09e140dd340398206e73ecffe95dd
+      name: Jupiter VSAT Terminal Overview
+      auto_start: NO
+      pages:
+      - name: Terminal Info
+        widgets:
+        - type: item
+          name: Modem Network Uptime
+          width: '15'
+          fields:
+          - type: INTEGER
+            name: decimal_size
+            value: '24'
+          - type: ITEM
+            name: itemid.0
+            value:
+              host: Jupiter VSAT
+              key: system.net.uptime[sysUpTime.0]
+          - type: INTEGER
+            name: show.0
+            value: '1'
+          - type: INTEGER
+            name: show.1
+            value: '2'
+          - type: INTEGER
+            name: show.2
+            value: '3'
+          - type: INTEGER
+            name: value_size
+            value: '34'
+        - type: svggraph
+          name: Rx SQF & Tx Es/No
+          y: '2'
+          width: '36'
+          height: '5'
+          fields:
+          - type: STRING
+            name: ds.0.color
+            value: FF465C
+          - type: INTEGER
+            name: ds.0.fill
+            value: '0'
+          - type: STRING
+            name: ds.0.items.0
+            value: downlinkEsNoNEW
+          - type: STRING
+            name: ds.1.color
+            value: FFD54F
+          - type: INTEGER
+            name: ds.1.fill
+            value: '0'
+          - type: STRING
+            name: ds.1.items.0
+            value: uplinkEsNoNEW
+          - type: STRING
+            name: ds.2.color
+            value: 0EC9AC
+          - type: INTEGER
+            name: ds.2.fill
+            value: '0'
+          - type: STRING
+            name: ds.2.items.0
+            value: uplinkPowerBackoff
+          - type: INTEGER
+            name: legend_lines
+            value: '3'
+          - type: INTEGER
+            name: legend_statistic
+            value: '1'
+          - type: STRING
+            name: reference
+            value: CSBKQ
+          - type: INTEGER
+            name: rf_rate
+            value: '600'
+          - type: INTEGER
+            name: righty
+            value: '0'
+        - type: graph
+          name: Availability
+          y: '7'
+          width: '36'
+          height: '5'
+          fields:
+          - type: GRAPH
+            name: graphid.0
+            value:
+              host: Jupiter VSAT
+              name: Availability
+          - type: STRING
+            name: reference
+            value: OYEBI
+        - type: item
+          name: Modem Hardware Uptime (Power)
+          x: '15'
+          width: '16'
+          fields:
+          - type: INTEGER
+            name: decimal_size
+            value: '24'
+          - type: ITEM
+            name: itemid.0
+            value:
+              host: Jupiter VSAT
+              key: system.hw.uptime[hrSystemUptime.0]
+          - type: INTEGER
+            name: show.0
+            value: '1'
+          - type: INTEGER
+            name: show.1
+            value: '2'
+          - type: INTEGER
+            name: show.2
+            value: '3'
+          - type: INTEGER
+            name: value_size
+            value: '34'
+        - type: item
+          name: Stream Error Rate
+          x: '35'
+          width: '11'
+          fields:
+          - type: ITEM
+            name: itemid.0
+            value:
+              host: Jupiter VSAT
+              key: stream.error.rate
+        - type: svggraph
+          x: '36'
+          y: '2'
+          width: '36'
+          height: '5'
+          fields:
+          - type: STRING
+            name: ds.0.color
+            value: FF465C
+          - type: STRING
+            name: ds.0.items.0
+            value: Terminal Avg Temp
+          - type: INTEGER
+            name: legend_statistic
+            value: '1'
+          - type: STRING
+            name: reference
+            value: OSOBF
+          - type: INTEGER
+            name: righty
+            value: '0'
+        - type: graph
+          name: Avail_latency
+          x: '36'
+          y: '7'
+          width: '36'
+          height: '5'
+          fields:
+          - type: GRAPH
+            name: graphid.0
+            value:
+              host: Jupiter VSAT
+              name: Avail_latency
+          - type: STRING
+            name: reference
+            value: VNBFT
+        - type: item
+          name: SQF
+          x: '46'
+          width: '12'
+          fields:
+          - type: ITEM
+            name: itemid.0
+            value:
+              host: Jupiter VSAT
+              key: downlinkEsNoNEW
+        - type: item
+          name: Uplink SQF
+          x: '58'
+          width: '12'
+          fields:
+          - type: ITEM
+            name: itemid.0
+            value:
+              host: Jupiter VSAT
+              key: uplinkEsNoNEW
+    valuemaps:
+    - uuid: 4498f00ec975411db8bf78cc6723cf73
+      name: uplinkCodeRate
+      mappings:
+      - value: R
+        newvalue: 9/10
+  graphs:
+  - uuid: 97512eb18d0d433ca8ff25caff2b3e09
+    name: Availability
+    graph_items:
+    - color: 199C0D
+      calc_fnc: ALL
+      item:
+        host: Jupiter VSAT
+        key: zabbix[host,snmp,available]
+  - uuid: 2f927c23c95a4ddaa1a723ac058df3b7
+    name: Avail_latency
+    graph_items:
+    - color: 199C0D
+      calc_fnc: ALL
+      item:
+        host: Jupiter VSAT
+        key: icmppingloss
+    - sortorder: '1'
+      color: F63100
+      calc_fnc: ALL
+      item:
+        host: Jupiter VSAT
+        key: icmpping
+    - sortorder: '2'
+      color: 2774A4
+      calc_fnc: ALL
+      item:
+        host: Jupiter VSAT
+        key: icmppingsec
