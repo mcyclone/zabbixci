@@ -2,7 +2,7 @@ zabbix_export:
   version: '7.0'
   template_groups:
   - uuid: 891942b0faca46b4a63f8f6012f617b5
-    name: HughesJupiterVSATs
+    name: HNS/HughesJupiterVSATs
   - uuid: 7df96b18c230490a9a0a9e2307226338
     name: Templates
   templates:
@@ -15,7 +15,7 @@ zabbix_export:
     templates:
     - name: Vsat by SNMP
     groups:
-    - name: HughesJupiterVSATs
+    - name: HNS/HughesJupiterVSATs
     - name: Templates
     items:
     - uuid: 4d712d71a2904c13bba7ab694a5b2e34

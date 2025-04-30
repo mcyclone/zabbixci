@@ -1,0 +1,1095 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: HNS/HughesJ3
+  - uuid: 4cd2a1eaedcc4e5995d5d787bbc3971d
+    name: HNS/HughesJupiter
+  templates:
+  - uuid: 13d0dc26f216447895b22986aa6c2a45
+    template: JupiterMODEM3
+    name: JupiterMODEM3
+    vendor:
+      name: Hughes Network System LLC
+      version: 7.0-0
+    templates:
+    - name: Linux by SNMP
+    groups:
+    - name: HNS/HughesJ3
+    - name: HNS/HughesJupiter
+    items:
+    - uuid: 1ff49c1d8c7046ab922bcafa0ef7b8e1
+      name: DataLAN1.ErrorPacketsCount
+      type: DEPENDENT
+      key: demodlan.DataLAN1.ErrorPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.DataLAN1.ErrorPacketsCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: 48b1858b5b3a4420b4fe08f88277ea30
+      name: DataLAN1.GoodPacketsCount
+      type: DEPENDENT
+      key: demodlan.DataLAN1.GoodPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.DataLAN1.GoodPacketsCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: d2fd4262e2044794823ba89ed9552d9a
+      name: DataLAN1.NoMatchPacketsCount
+      type: DEPENDENT
+      key: demodlan.DataLAN1.NoMatchPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.DataLAN1.NoMatchPacketsCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: d4b3fa03e61342a4bc1b606bbd87c4c9
+      name: DataLAN1.ReceivedPacketsCount
+      type: DEPENDENT
+      key: demodlan.DataLAN1.ReceivedPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.DataLAN1.ReceivedPacketsCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: b4b1fc34f62748c38c20d92bf6ed9e55
+      name: DataLAN2.ErrorPacketsCount
+      type: DEPENDENT
+      key: demodlan.DataLAN2.ErrorPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.DataLAN2.ErrorPacketsCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: 8e33b00f2b0b4a19b9be71510d0cf15e
+      name: DataLAN2.GoodPacketsCount
+      type: DEPENDENT
+      key: demodlan.DataLAN2.GoodPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.DataLAN2.GoodPacketsCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: 2e30e26d932248b287f0103b0e9d2372
+      name: DataLAN2.NoMatchPacketsCount
+      type: DEPENDENT
+      key: demodlan.DataLAN2.NoMatchPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.DataLAN2.NoMatchPacketsCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: 5fce539316384344a26db92a5ba086ee
+      name: DataLAN2.ReceivedPacketsCount
+      type: DEPENDENT
+      key: demodlan.DataLAN2.ReceivedPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.DataLAN2.ReceivedPacketsCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: 90e9106db9d04562b03a6b0dd22de440
+      name: GeneralStats.TransmitterUDPPacketsCount
+      type: DEPENDENT
+      key: demodlan.GeneralStats.TransmitterUDPPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.GeneralStats.TransmitterUDPPacketsCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: ef5a15fdac9540c19e20b185cd57698c
+      name: MACm3bDriverFullStats.interrupts
+      type: DEPENDENT
+      key: demodlan.MACm3bDriverFullStats.interrupts
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.MACm3bDriverFullStats.interrupts
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: ef1a78e5437c4827b5064bb590e18aae
+      name: MACm3bDriverStats.MACaddressmismatchCount
+      type: DEPENDENT
+      key: demodlan.MACm3bDriverStats.MACaddressmismatchCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.MACm3bDriverStats.MACaddressmismatchCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: a45ef5869dc94fb591e1dc2d1f4607e4
+      name: MACm3bDriverStats.MissingSequenceCount
+      type: DEPENDENT
+      key: demodlan.MACm3bDriverStats.MissingSequenceCount
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.InformationInrouteLANStatistics.MACm3bDriverStats.MissingSequenceCount
+      master_item:
+        key: demodulator.lan.stats.discovery
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: 4d4893c7ae6c45a48cbb5cf61e2931b6
+      name: Demodulator LAN Statistics Discovery
+      type: HTTP_AGENT
+      key: demodulator.lan.stats.discovery
+      value_type: TEXT
+      trends: '0'
+      preprocessing:
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          // Initialize the JSON structure
+          var result = {
+              "InformationInrouteLANStatistics": {
+                  "GeneralStats": {},
+                  "DataLAN1": {},
+                  "DataLAN2": {},
+                  "MACm3bDriverStats": {},
+                  "MACm3bDriverFullStats": {}
+              }
+          };
+
+          // Function to clean up HTML tags and extract text
+          function cleanText(text) {
+              // Remove HTML tags
+              text = text.replace(/<\/?[^>]+(>|$)/g, "").trim();
+              // Remove square brackets and any extra characters
+              text = text.replace(/[\[\]]/g, "").trim();
+              return text;
+          }
+
+          // Function to remove spaces from keys and section names
+          function formatKey(key) {
+              return key.replace(/\s+/g, '');
+          }
+
+          // Normalize section names to match the keys in the result object
+          function normalizeSectionName(sectionName) {
+              switch (sectionName.toLowerCase().replace(/\s+/g, '')) {
+                  case "datalan1":
+                      return "DataLAN1";
+                  case "datalan2":
+                      return "DataLAN2";
+                  case "macm3bdriverstats":
+                      return "MACm3bDriverStats";
+                  case "macm3bdriverfullstats":
+                      return "MACm3bDriverFullStats";
+                  default:
+                      return null;
+              }
+          }
+
+          // Helper function to populate the JSON structure
+          function populateStats(section, name, value) {
+              if (section) {
+                  var formattedName = formatKey(name);
+                  // Convert to a number if possible, otherwise keep as string
+                  result["InformationInrouteLANStatistics"][section][formattedName] = isNaN(value) ? value : parseFloat(value);
+              }
+          }
+
+          // Split the HTML content into rows based on the table row tags
+          var rows = value.split(/<tr[^>]*>/);
+
+          // Variables to track the current section
+          var currentSection = "GeneralStats";
+
+          // Iterate through each row to extract data
+          for (var i = 0; i < rows.length; i++) {
+              var row = rows[i];
+
+              // Check if the row contains a section header
+              var sectionMatch = row.match(/<b><u>(.*?)<\/u><\/b>/);
+              if (sectionMatch) {
+                  currentSection = normalizeSectionName(cleanText(sectionMatch[1]));
+                  continue;
+              }
+
+              // Extract data cells from the row
+              var cells = row.match(/<td[^>]*>(.*?)<\/td>/g);
+              if (cells && cells.length >= 2) {
+                  var name = cleanText(cells[0]);
+                  var value = cleanText(cells[1]);
+
+                  // Populate the data if the current section is set and valid
+                  if (currentSection && name) {
+                      populateStats(currentSection, name, value);
+                  }
+              }
+          }
+
+          // Return the JSON structure as a string
+          return JSON.stringify(result);
+
+      url: http://{HOST.DNS}:8080/mcs/mcs_gui.fcgi?Command=2:23:0
+      tags:
+      - tag: mcs
+        value: demodlan
+    - uuid: d4bed99d96534069a737e4bbd85edbb0
+      name: mcsDiscovery
+      type: SNMP_AGENT
+      snmp_oid: walk[1.3.6.1.4.1.303.3.3.45.39.3.1]
+      key: mcs.discovery
+      history: '0'
+      value_type: TEXT
+      trends: '0'
+      description: discover MCS
+    - uuid: 7e20805741174e9187788ab22db658c4
+      name: mcsDemodStatAcqStatsAvgAgcLevel
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.3.3.0]
+      key: mcsDemodStatAcqStatsAvgAgcLevel
+      value_type: FLOAT
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: b72b0be887054d79b6212d5a14e2f922
+      name: mcsDemodStatAcqStatsAvgAgcLevelHi
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.3.4.0]
+      key: mcsDemodStatAcqStatsAvgAgcLevelHi
+      value_type: FLOAT
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: 74dfb27e636b4ac586587ff10feccda5
+      name: mcsDemodStatAcqStatsAvgEsNo
+      type: SNMP_AGENT
+      snmp_oid: walk[1.3.6.1.4.1.303.3.3.45.39.3.3.3.5]
+      key: mcsDemodStatAcqStatsAvgEsNo
+      preprocessing:
+      - type: REGEX
+        parameters:
+        - INTEGER:\s+(\d+)
+        - \1
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: d6bd0f88393a46f98016d4050d752c23
+      name: mcsDemodStatAcqStatsAvgEsNoHi
+      type: SNMP_AGENT
+      snmp_oid: walk[1.3.6.1.4.1.303.3.3.45.39.3.3.3.6]
+      key: mcsDemodStatAcqStatsAvgEsNoHi
+      preprocessing:
+      - type: REGEX
+        parameters:
+        - INTEGER:\s+(\d+)
+        - \1
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: 7ac3d1a9a7dd4e8894b59155f460a4c1
+      name: mcsDemodStatAcqStatsAvgFreqOffset
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.3.1.0]
+      key: mcsDemodStatAcqStatsAvgFreqOffset
+      value_type: FLOAT
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: 75a94987c0f84bff846991226871c180
+      name: mcsDemodStatAcqStatsAvgFreqOffsetHi
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.3.2.0]
+      key: mcsDemodStatAcqStatsAvgFreqOffsetHi
+      value_type: FLOAT
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: ff1c6ccd09ab45aebd10c81f92c51210
+      name: mcsDemodStatAcqStatsInrtsLocked
+      type: SNMP_AGENT
+      snmp_oid: walk[1.3.6.1.4.1.303.3.3.45.39.3.3.3.7]
+      key: mcsDemodStatAcqStatsInrtsLocked
+      preprocessing:
+      - type: REGEX
+        parameters:
+        - INTEGER:\s+(\d+)
+        - \1
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: 146d0598b20e4259aa789984f297596f
+      name: mcsDemodStatAcqStatsInrtsLockedHi
+      type: SNMP_AGENT
+      snmp_oid: walk[1.3.6.1.4.1.303.3.3.45.39.3.3.3.8]
+      key: mcsDemodStatAcqStatsInrtsLockedHi
+      preprocessing:
+      - type: REGEX
+        parameters:
+        - INTEGER:\s+(\d+)
+        - \1
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: 1a8050b148974f69934e84af217f1d86
+      name: mcsDemodStatBTPMsgMissed
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.1.4.0]
+      key: mcsDemodStatBTPMsgMissed
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: 2e7fd4fa4bdd4ebabe32f49836f544b8
+      name: mcsDemodStatBTPMsgSeqError
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.1.5.0]
+      key: mcsDemodStatBTPMsgSeqError
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: 0c09215e2dfc4c9391d459a601a81d08
+      name: mcsDemodStatBTPQueOverflow
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.1.8.0]
+      key: mcsDemodStatBTPQueOverflow
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: cedcb303cd2a483292f5cddefb5a3a9a
+      name: mcsDemodStatBurstsRcvd
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.1.13.0]
+      key: mcsDemodStatBurstsRcvd
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: ae50752b0a43457eb444063fb1193b26
+      name: mcsDemodStatBurstsWithCRCError
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.1.15.0]
+      key: mcsDemodStatBurstsWithCRCError
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: d98432a9920c48fd8076dae973272641
+      name: mcsDemodStatMissedBurstsRcvd
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.1.14.0]
+      key: mcsDemodStatMissedBurstsRcvd
+      value_type: FLOAT
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: 48c1f84eba4941fe9426467f3dbbc40b
+      name: mcsDemodStatValidBurstsRcvd
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.3.1.18.0]
+      key: mcsDemodStatValidBurstsRcvd
+      value_type: FLOAT
+      tags:
+      - tag: mcs
+        value: demod
+    - uuid: 20de7e200cc24b85a0ce21271528385b
+      name: mcsInrtStatus
+      type: SNMP_AGENT
+      snmp_oid: walk[1.3.6.1.4.1.303.3.3.45.39.3.1.5.1]
+      key: mcsInrtStatus
+      valuemap:
+        name: mcsStatusOverallStatus
+      preprocessing:
+      - type: REGEX
+        parameters:
+        - INTEGER:\s+(\d+)
+        - \1
+    - uuid: 5974b2b3bfb8475fbe2ef82685480f91
+      name: mcsStatusOtrtStatus
+      type: SNMP_AGENT
+      snmp_oid: walk[1.3.6.1.4.1.303.3.3.45.39.3.1.4.1]
+      key: mcsStatusOtrtStatus
+      valuemap:
+        name: mcsStatusOverallStatus
+      preprocessing:
+      - type: REGEX
+        parameters:
+        - INTEGER:\s+(\d+)
+        - \1
+    - uuid: 84fe4d0d2f38477f8ee4acd79630df9d
+      name: mcsStatusOverallStatus
+      type: SNMP_AGENT
+      snmp_oid: get[1.3.6.1.4.1.303.3.3.45.39.3.1.1.0]
+      key: mcsStatusOverallStatus
+      valuemap:
+        name: mcsStatusOverallStatus
+    - uuid: 808d2bb5265c4d7886ba842c1c9dfe90
+      name: modStTotalalOutputThroughput
+      type: SNMP_AGENT
+      snmp_oid: walk[1.3.6.1.4.1.303.3.3.45.39.3.2.1.7]
+      key: modStTotalalOutputThroughput
+      history: '0'
+      value_type: FLOAT
+      trends: '0'
+      description: |
+        This object provides the Modulator: Total throughput in Mbps
+        Source: Computed by component
+      preprocessing:
+      - type: REGEX
+        parameters:
+        - INTEGER:\s+(\d+)
+        - \1
+    - uuid: 5f113d03d9bc47d5ba8d5a498a9c6dec
+      name: CDBRXStats.RXLatencyCurrent(ns)
+      type: DEPENDENT
+      key: olsd.CDBRXStats.RXLatencyCurrentns
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.CDBRXStats["RXLatencyCurrent(ns)"]
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 99553c715c184d44aebc3b368f1b8c07
+      name: CDBRXStats.RXLatencyCurrent(sec)
+      type: DEPENDENT
+      key: olsd.CDBRXStats.RXLatencyCurrentSec
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.CDBRXStats["RXLatencyCurrent(sec)"]
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 721d12a4fa6d485093fe5919517caa31
+      name: DataLAN1.ErrorPacketsCount
+      type: DEPENDENT
+      key: olsd.DataLAN1.ErrorPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.DataLAN1.ErrorPacketsCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 012a58901b504adb9e0d54f0f1519ab2
+      name: DataLAN1.GoodPacketsCount
+      type: DEPENDENT
+      key: olsd.DataLAN1.GoodPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.DataLAN1.GoodPacketsCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: b6ff736d09284f2790152a822c7eb205
+      name: MACm3bDriverFullStats
+      type: DEPENDENT
+      key: olsd.DataLAN1.MACm3bDriverFullStats
+      delay: '0'
+      history: '0'
+      trends: '0'
+      status: DISABLED
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.*.MACm3bDriverFullStats
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 2e17e45647524d18a430555e24549dc4
+      name: DataLAN1.NoMatchPacketsCount
+      type: DEPENDENT
+      key: olsd.DataLAN1.NoMatchPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.DataLAN1.NoMatchPacketsCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: d96541f6c5924c569bf95db7b2f64c55
+      name: DataLAN1.ReceivedPacketsCount
+      type: DEPENDENT
+      key: olsd.DataLAN1.ReceivedPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.DataLAN1.ReceivedPacketsCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: b114c117b9a64cecaa5bac14d31e8beb
+      name: DataLAN2.ErrorPacketsCount
+      type: DEPENDENT
+      key: olsd.DataLAN2.ErrorPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.DataLAN2.ErrorPacketsCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 315c7afbdd6b4e138d4b9f2aa9cc767f
+      name: DataLAN2.GoodPacketsCount
+      type: DEPENDENT
+      key: olsd.DataLAN2.GoodPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.DataLAN2.GoodPacketsCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 5de077e279a043f69bcab2b43bb8b84a
+      name: DataLAN2.NoMatchPacketsCount
+      type: DEPENDENT
+      key: olsd.DataLAN2.NoMatchPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.DataLAN2.NoMatchPacketsCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 21ddc26dd9fd4c2bad75f236beacd9a6
+      name: DataLAN2.ReceivedPacketsCount
+      type: DEPENDENT
+      key: olsd.DataLAN2.ReceivedPacketsCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.DataLAN2.ReceivedPacketsCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 1f7cf8959a6e4fe2bf9d14dc1b00db46
+      name: GeneralStats.CurrentIntervalInputThroughput
+      type: DEPENDENT
+      key: olsd.GeneralStats.CurrentIntervalInputThroughput
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.GeneralStats.CurrentIntervalInputThroughput
+      - type: REGEX
+        parameters:
+        - ^([0-9]+\.[0-9]+)
+        - \1
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 19f7224ccd72462a9fb264022eac4411
+      name: GeneralStats.CurrentIntervalLostThroughput
+      type: DEPENDENT
+      key: olsd.GeneralStats.CurrentIntervalLostThroughput
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.GeneralStats.CurrentIntervalLostThroughput
+      - type: REGEX
+        parameters:
+        - ^([0-9]+\.[0-9]+)
+        - \1
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 4ae4a3280cb54eabb67e300add489325
+      name: GeneralStats.CurrentIntervalOutputThroughput
+      type: DEPENDENT
+      key: olsd.GeneralStats.CurrentIntervalOutputThroughput
+      delay: '0'
+      value_type: FLOAT
+      units: Mbps
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.GeneralStats.CurrentIntervalOutputThroughput
+      - type: REGEX
+        parameters:
+        - ^([0-9]+\.[0-9]+)
+        - \1
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 4c5c5c79b8a04ca784c23d2fe6e57707
+      name: MACm3bDriverStats.MACaddressmismatchCount
+      type: DEPENDENT
+      key: olsd.MACm3bDriverStats.MACaddressmismatchCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.MACm3bDriverStats.MACaddressmismatchCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 34c9c3f8b33845309d8e3d99adcc0424
+      name: MACm3bDriverStats.MissingSequenceCount
+      type: DEPENDENT
+      key: olsd.MACm3bDriverStats.MissingSequenceCount
+      delay: '0'
+      value_type: FLOAT
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.MACm3bDriverStats.MissingSequenceCount
+      master_item:
+        key: outroute.lan.stats.discovery.1
+      tags:
+      - tag: olsd
+        value: olsd
+    - uuid: 6f56643998724c8b98c8a285949c8d19
+      name: Outroute Per DAC discovery
+      type: HTTP_AGENT
+      key: out.per.dac.disc
+      value_type: TEXT
+      trends: '0'
+      preprocessing:
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          // Input HTML as a string
+          var html = value;
+
+          // Pattern to match each section header
+          var sectionPattern = /Statistics Summary - (.*? Throughput Statistics)/g;
+
+          // Pattern to match each row of the throughput table (standard rows)
+          var rowPattern = /<tr>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<\/tr>/gi;
+
+          // Pattern to match the "Total Throughput" row
+          var totalThroughputPattern = /<tr>\s*<td[^>]*>Total Throughput on [^<]*<\/td>\s*<td[^>]*>(.*?)<\/td>\s*<\/tr>/gi;
+
+          var sections = [];
+          var matchSection, matchRow, matchTotal;
+
+          // Function to convert a string with "Mbps" to a float number
+          function convertThroughput(value) {
+              if (value && value.endsWith(' Mbps')) {
+                  return parseFloat(value.replace(' Mbps', ''));
+              }
+              return value;
+          }
+
+          // Function to convert a string to an integer if it's numeric
+          function convertToInteger(value) {
+              if (!isNaN(value)) {
+                  return parseInt(value);
+              }
+              return value;
+          }
+
+          var sectionStartIndex = 0;
+
+          while ((matchSection = sectionPattern.exec(html)) !== null) {
+              var sectionEndIndex = sectionPattern.lastIndex;
+              
+              var section = {
+                  "StatisticsSummary": matchSection[1],
+                  "Data": []
+              };
+
+              // Collect rows for the current section
+              var rowsHtml = html.substring(sectionEndIndex, html.indexOf('Statistics Summary - ', sectionEndIndex) !== -1 ? html.indexOf('Statistics Summary - ', sectionEndIndex) : html.length);
+              while ((matchRow = rowPattern.exec(rowsHtml)) !== null) {
+                  var row = {
+                      "PhysicalCarrier": convertToInteger(matchRow[1]),
+                      "BeamID": convertToInteger(matchRow[2]),
+                      "OutrouteNumber": convertToInteger(matchRow[3]),
+                      "OutrouteIdx": convertToInteger(matchRow[4]),
+                      "Throughput": convertThroughput(matchRow[5]),
+                      "ReceivedCodeblocks": convertToInteger(matchRow[6]),
+                      "ProcessedCodeblocks": convertToInteger(matchRow[7]),
+                      "LostCodeblocks": convertToInteger(matchRow[8])
+                  };
+
+                  section["Data"].push(row);
+              }
+
+              // Find the Total Throughput row
+              var totalThroughputHtml = rowsHtml;
+              while ((matchTotal = totalThroughputPattern.exec(totalThroughputHtml)) !== null) {
+                  section["TotalThroughputOn" + section["StatisticsSummary"]] = convertThroughput(matchTotal[1]);
+              }
+
+              sections.push(section);
+              sectionStartIndex = sectionEndIndex;
+          }
+
+          // Convert result to JSON string to be returned by Zabbix
+          return JSON.stringify(sections);
+
+      timeout: 60s
+      url: http://{HOST.DNS}:8080/mcs/mcs_gui.fcgi?Command=2:9:0
+      tags:
+      - tag: mcs
+        value: m3
+    - uuid: 1e33070fc0c54e2b80a08958f86b72b3
+      name: Modulator LAN Statistics Discovery
+      type: HTTP_AGENT
+      key: outroute.lan.stats.discovery.1
+      value_type: TEXT
+      trends: '0'
+      preprocessing:
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          // Initialize the JSON structure
+          var result = {
+              "InformationOutrouteLANStatistics": {
+                  "GeneralStats": {},
+                  "DataLAN1": {},
+                  "DataLAN2": {},
+                  "MACm3bDriverStats": {},
+                  "MACm3bDriverFullStats": {},
+                  "CDBRXStats": {}
+              }
+          };
+
+          // Function to clean up HTML tags and extract text
+          function cleanText(text) {
+              return text.replace(/<\/?[^>]+(>|$)/g, "").trim();
+          }
+
+          // Function to remove spaces from keys and section names
+          function formatKey(key) {
+              return key.replace(/\s+/g, '');
+          }
+
+          // Normalize section names to match the keys in the result object
+          function normalizeSectionName(sectionName) {
+              switch (sectionName.toLowerCase().replace(/\s+/g, '')) {
+                  case "datalan1":
+                      return "DataLAN1";
+                  case "datalan2":
+                      return "DataLAN2";
+                  case "macm3bdriverstats":
+                      return "MACm3bDriverStats";
+                  case "macm3bdriverfullstats":
+                      return "MACm3bDriverFullStats";
+                  case "cdbrxstats":
+                      return "CDBRXStats";
+                  default:
+                      return null;
+              }
+          }
+
+          // Helper function to populate the JSON structure
+          function populateStats(section, name, value) {
+              if (section) {
+                  var formattedName = formatKey(name);
+                  result["InformationOutrouteLANStatistics"][section][formattedName] = isNaN(value) ? value : parseFloat(value);
+              }
+          }
+
+          // Split the HTML content into rows based on the table row tags
+          var rows = value.split(/<tr[^>]*>/);
+
+          // Variables to track the current section
+          var currentSection = "GeneralStats";
+
+          // Iterate through each row to extract data
+          for (var i = 0; i < rows.length; i++) {
+              var row = rows[i];
+
+              // Check if the row contains a section header
+              var sectionMatch = row.match(/<b><u>(.*?)<\/u><\/b>/);
+              if (sectionMatch) {
+                  currentSection = normalizeSectionName(cleanText(sectionMatch[1]));
+                  continue;
+              }
+
+              // Extract data cells from the row
+              var cells = row.match(/<td[^>]*>(.*?)<\/td>/g);
+              if (cells && cells.length >= 2) {
+                  var name = cleanText(cells[0]);
+                  var value = cleanText(cells[1]);
+
+                  // Populate the data if the current section is set and valid
+                  if (currentSection && name) {
+                      populateStats(currentSection, name, value);
+                  }
+              }
+          }
+
+          // Return the JSON structure as a string
+          return JSON.stringify(result);
+
+      - type: JSONPATH
+        parameters:
+        - $.InformationOutrouteLANStatistics
+      url: http://{HOST.DNS}:8080/mcs/mcs_gui.fcgi?Command=2:7:0:0
+      tags:
+      - tag: olsd
+        value: olsd
+    discovery_rules:
+    - uuid: 658be7b271304d50942002fcb80bf159
+      name: DAC M3T Outroute Throughput Statistics
+      type: DEPENDENT
+      key: DACM3TOutrouteThroughputStatistics
+      delay: '0'
+      item_prototypes:
+      - uuid: 3e32311f04a94ee68c7dd3920e0aa29d
+        name: '{#STATISTICSSUMMARY}. CarrierID: {#PHYSICALCARRIER} BeamID: {#BEAMID}
+          OutrouteNumber: {#OUTROUTENUMBER}.LostCodeblocks'
+        type: DEPENDENT
+        key: Outroute[LostCodeblocks .{#STATISTICSSUMMARY}.{#PHYSICALCARRIER}.{#BEAMID}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.[?(@.StatisticsSummary == '{#STATISTICSSUMMARY}')].Data[?(@.PhysicalCarrier
+            == {#PHYSICALCARRIER} && @.BeamID != 'N/A' && @.OutrouteNumber != 'N/A'
+            && @.BeamID == {#BEAMID} && @.OutrouteNumber == {#OUTROUTENUMBER})].LostCodeblocks
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        master_item:
+          key: out.per.dac.disc
+        tags:
+        - tag: DAC
+          value: LostCodeblocks
+      - uuid: 815a9d180ddf4262a7d8d796bff2bc3a
+        name: '{#STATISTICSSUMMARY}. CarrierID: {#PHYSICALCARRIER} BeamID: {#BEAMID}
+          OutrouteNumber: {#OUTROUTENUMBER}.throughput'
+        type: DEPENDENT
+        key: Outroute[throughput.{#STATISTICSSUMMARY}.{#PHYSICALCARRIER}.{#BEAMID}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.[?(@.StatisticsSummary == '{#STATISTICSSUMMARY}')].Data[?(@.PhysicalCarrier
+            == {#PHYSICALCARRIER} && @.BeamID != 'N/A' && @.OutrouteNumber != 'N/A'
+            && @.BeamID == {#BEAMID} && @.OutrouteNumber == {#OUTROUTENUMBER})].Throughput
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        master_item:
+          key: out.per.dac.disc
+        tags:
+        - tag: DAC
+          value: Throughput
+      master_item:
+        key: out.per.dac.disc
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.[*]
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          var dataArray = JSON.parse(value);
+          var result = [];
+
+          dataArray.forEach(function(entry) {
+              entry.Data.forEach(function(dataEntry) {
+                  result.push({
+                      "{#STATISTICSSUMMARY}": entry.StatisticsSummary,
+                      "{#PHYSICALCARRIER}": dataEntry.PhysicalCarrier,
+                      "{#BEAMID}": dataEntry.BeamID,
+                      "{#OUTROUTENUMBER}": dataEntry.OutrouteNumber,
+                      "{#OUTROUTEIDX}": dataEntry.OutrouteIdx,
+                      "{#THROUGHPUT}": dataEntry.Throughput,
+                      "{#RECEIVEDCODEBLOCKS}": dataEntry.ReceivedCodeblocks,
+                      "{#PROCESSEDCODEBLOCKS}": dataEntry.ProcessedCodeblocks,
+                      "{#LOSTCODEBLOCKS}": dataEntry.LostCodeblocks
+                  });
+              });
+          });
+
+          return JSON.stringify(result);
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          // Parse the input JSON
+          var data = JSON.parse(value);
+
+          // Function to check if an object contains "N/A" value
+          function containsNA(obj) {
+              for (var key in obj) {
+                  if (obj[key] === "N/A") {
+                      return true;
+                  }
+              }
+              return false;
+          }
+
+          // Filter the array to remove objects with any key having the value "N/A"
+          var filteredData = [];
+          for (var i = 0; i < data.length; i++) {
+              if (!containsNA(data[i])) {
+                  filteredData.push(data[i]);
+              }
+          }
+
+          // Return the filtered JSON as a string
+          return JSON.stringify(filteredData);
+
+    valuemaps:
+    - uuid: f33695698c5b4259bd0706bea9d3d7b5
+      name: mcsStatusOtrtInrtStatus
+      mappings:
+      - value: '0'
+        newvalue: normal
+      - value: '1'
+        newvalue: informational
+      - value: '2'
+        newvalue: minor
+      - value: '3'
+        newvalue: major
+      - value: '4'
+        newvalue: critical
+    - uuid: a24a7adb89e64acd8e895cbf3a9c4672
+      name: mcsStatusOverallStatus
+      mappings:
+      - value: '1'
+        newvalue: normal
+      - value: '2'
+        newvalue: minor
+      - value: '3'
+        newvalue: major
+      - value: '4'
+        newvalue: critical
+      - value: '5'
+        newvalue: offline
+  graphs:
+  - uuid: ab34aee235cd43d1bd7c82f8e1981e9e
+    name: MDM_AGC_Level
+    graph_items:
+    - color: 1A7C11
+      calc_fnc: ALL
+      item:
+        host: JupiterMODEM3
+        key: mcsDemodStatAcqStatsAvgAgcLevel

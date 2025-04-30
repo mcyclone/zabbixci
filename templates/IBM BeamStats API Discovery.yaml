@@ -1,0 +1,269 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: HNS/HughesJ3
+  - uuid: 4cd2a1eaedcc4e5995d5d787bbc3971d
+    name: HNS/HughesJupiter
+  templates:
+  - uuid: a8f0b51308d94ee59bd0046382e69c43
+    template: IBM BeamStats API Discovery
+    name: IBM BeamStats API Discovery
+    description: This template will monitor the satelliteBits field in a JSON response
+      from the URL http://<fqdn>:8080/ibm/api/beam/stats/current.
+    groups:
+    - name: HNS/HughesJ3
+    - name: HNS/HughesJupiter
+    discovery_rules:
+    - uuid: 5805dfeed424447b86b9dace15d0c76a
+      name: Beam Stats Discovery
+      type: HTTP_AGENT
+      key: beam.satellite.discovery
+      lifetime: 30d
+      enabled_lifetime_type: DISABLE_NEVER
+      item_prototypes:
+      - uuid: 399e275b96374a0d87ee982bced4dd1a
+        name: '{#BEAM}.numActiveTerminals'
+        type: HTTP_AGENT
+        key: numActiveTerminals.in.[{#BEAM}]
+        history: 90d
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.beamName == "{#BEAM}")].beamStats.numActiveTerminals
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/beam/stats/current
+        follow_redirects: NO
+        tags:
+        - tag: Beam
+          value: '{#BEAM}'
+      - uuid: 4b97743387244e9e9addf8ea204a0dd8
+        name: Return.offeredLoad{#BEAM}
+        type: HTTP_AGENT
+        key: offeredLoad.[{#BEAM}]
+        history: 90d
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.beamName == "{#BEAM}")].beamStats.offeredLoad
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/beam/stats/current
+        follow_redirects: NO
+        tags:
+        - tag: Beam
+          value: '{#BEAM}'
+      - uuid: 2b05619d417143c2b9bc90978ac97b80
+        name: Return.Beam.Capacity.{#BEAM}
+        type: CALCULATED
+        key: Return.Beam.Capacity.[{#BEAM}]
+        delay: 1m;m0-59
+        history: 90d
+        value_type: FLOAT
+        units: bps
+        params: (last(//satelliteAllocation.[{#BEAM}])*last(//totalCapacitySlots.[{#BEAM}]))/
+          (last(//satelliteAllocationSlots.[{#BEAM}])+0.1)
+        description: beam capacity (sattlite allocation * total capacity slot)/ Satellite
+          allocation slot
+        preprocessing:
+        - type: MULTIPLIER
+          parameters:
+          - '1000000'
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        tags:
+        - tag: Beam
+          value: '{#BEAM}'
+      - uuid: 6e08c42a49bc4635a784e9f55a7bfacf
+        name: Return.satelliteThroughput{#BEAM}
+        type: HTTP_AGENT
+        key: Return.satelliteThroughput[{#BEAM}]
+        history: 90d
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.beamName == "{#BEAM}")].beamStats.satelliteThroughput
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/beam/stats/current
+        follow_redirects: NO
+        tags:
+        - tag: Beam
+          value: '{#BEAM}'
+      - uuid: 0ff6e8eb8ad54b108fb458ca94b463af
+        name: satelliteAllocation.{#BEAM}
+        type: HTTP_AGENT
+        key: satelliteAllocation.[{#BEAM}]
+        history: 90d
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.beamName == "{#BEAM}")].beamStats.satelliteAllocation
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/beam/stats/current
+        follow_redirects: NO
+        tags:
+        - tag: Beam
+          value: '{#BEAM}'
+      - uuid: f9e84f79c5b54ef8beb2c35f7d7b780b
+        name: satelliteAllocationSlots.{#BEAM}
+        type: HTTP_AGENT
+        key: satelliteAllocationSlots.[{#BEAM}]
+        history: 90d
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.beamName == "{#BEAM}")].beamStats.satelliteAllocationSlots
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/beam/stats/current
+        follow_redirects: NO
+        tags:
+        - tag: Beam
+          value: '{#BEAM}'
+      - uuid: b70fe2c7c1ce48e5b29c60caa2629b80
+        name: testReturn.Beam.Capacity.{#BEAM}
+        type: CALCULATED
+        key: testReturn.Beam.Capacity.[{#BEAM}]
+        delay: 1m;m0-59
+        history: 90d
+        value_type: FLOAT
+        units: bps
+        params: 
+          (max(//satelliteAllocation.[{#BEAM}],1m)*max(//totalCapacitySlots.[{#BEAM}],1m))/
+          (max(//satelliteAllocationSlots.[{#BEAM}],1m)+0.1)
+        description: beam capacity (sattlite allocation * total capacity slot)/ Satellite
+          allocation slot
+        preprocessing:
+        - type: MULTIPLIER
+          parameters:
+          - '1000000'
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        tags:
+        - tag: testBeam
+          value: '{#BEAM}'
+      - uuid: 4998b9f4caeb463ea7380aa51141b2a3
+        name: totalCapacitySlots.{#BEAM}
+        type: HTTP_AGENT
+        key: totalCapacitySlots.[{#BEAM}]
+        history: 90d
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.beamName == "{#BEAM}")].beamStats.totalCapacitySlots
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/beam/stats/current
+        follow_redirects: NO
+        tags:
+        - tag: Beam
+          value: '{#BEAM}'
+      graph_prototypes:
+      - uuid: fbedc05e124844699fdefc57bc0fa551
+        name: Return {#BEAM} Statistic
+        graph_items:
+        - color: 00FF00
+          calc_fnc: MAX
+          item:
+            host: IBM BeamStats API Discovery
+            key: Return.Beam.Capacity.[{#BEAM}]
+        - sortorder: '1'
+          color: 64B5F6
+          calc_fnc: MAX
+          item:
+            host: IBM BeamStats API Discovery
+            key: Return.satelliteThroughput[{#BEAM}]
+        - sortorder: '2'
+          color: FF8000
+          calc_fnc: MAX
+          item:
+            host: IBM BeamStats API Discovery
+            key: offeredLoad.[{#BEAM}]
+      url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/beam/stats/current
+      follow_redirects: NO
+      lld_macro_paths:
+      - lld_macro: '{#BEAMID}'
+        path: $.beamId
+      - lld_macro: '{#BEAM}'
+        path: $.beamName
+      - lld_macro: '{#NUMACTIVETERMINALS}'
+        path: $.numActiveTerminals
+      - lld_macro: '{#OFFERLOAD}'
+        path: $.offeredLoad
+      - lld_macro: '{#SATELLITEALLOCATIONSLOTS}'
+        path: $.satelliteAllocationSlots
+      - lld_macro: '{#SATELLITEALLOCATION}'
+        path: $.satelliteAllocation
+      - lld_macro: '{#SATELLITETHROUGHPUT}'
+        path: $.satelliteThroughput
+      - lld_macro: '{#SATELLITEUSAGE}'
+        path: $.satelliteUsage
+      - lld_macro: '{#TOTALCAPACITYSLOTS}'
+        path: $.totalCapacitySlots
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.data.items[*]
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          var array = JSON.parse(value);
+          var output = [];
+
+          // Extracting "beamId", "beamName", and "beamStats" values
+          if (array && Array.isArray(array) && array.length > 0) {
+              output = array.map(function(item) {
+                  return {
+                      "beamId": item.beamId,
+                      "beamName": item.beamName,
+                      "beamStats": {
+                          "satelliteUsage": item.beamStats.satelliteThroughput,
+                          "satelliteUsageCBR": item.beamStats.satelliteUsageCBR,
+                          "throughputLimit": item.beamStats.throughputLimit,
+                          "throughputLimitCBR": item.beamStats.throughputLimitCBR,
+                          "throughputLimitMin": item.beamStats.throughputLimitMin,
+                          "satelliteAllocation": item.beamStats.satelliteAllocation,
+                          "satelliteAllocationSlots": item.beamStats.satelliteAllocationSlots,
+                          "totalCapacitySlots": item.beamStats.totalCapacitySlots
+
+                      }
+                  };
+              });
+          }
+
+          // Convert output to JSON string
+          var outputJSON = JSON.stringify(output);
+
+          // Return the JSON string
+          return outputJSON;
+    macros:
+    - macro: '{$LLD_PORT}'
+      value: '8080'

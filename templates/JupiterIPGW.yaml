@@ -1,0 +1,669 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: HNS/HughesJ3
+  - uuid: 4cd2a1eaedcc4e5995d5d787bbc3971d
+    name: HNS/HughesJupiter
+  templates:
+  - uuid: c331b78472904e11811c1adb5ade1d3f
+    template: JupiterIPGW
+    name: JupiterIPGW
+    vendor:
+      name: Hughes Network System LLC
+      version: 7.0-0
+    templates:
+    - name: Linux by SNMP
+    groups:
+    - name: HNS/HughesJ3
+    - name: HNS/HughesJupiter
+    items:
+    - uuid: 459865edae8a4fbdb44a46aa2d5a6c31
+      name: AllocSubnetV4Remaining
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.51.1.4.0
+      key: AllocSubnetV4Remaining
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 6350964479974f6b8aaa12fa7c6e2ed1
+        expression: last(/JupiterIPGW/AllocSubnetV4Remaining)=0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/AllocSubnetV4Remaining)>0
+        name: GW V4 Subnets Exhausted
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 29adb9cc9e01410983563d5c003d54f9
+      name: AllocSubnetV6Remaining
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.51.1.5.0
+      key: AllocSubnetV6Remaining
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: d07109d26469487a91c21a3982f75089
+        expression: last(/JupiterIPGW/AllocSubnetV6Remaining)=0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/AllocSubnetV6Remaining)>0
+        name: GW V6 Subnets Exhausted
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 0d1b224167c44a5f9b53c90a5eb3b9bf
+      name: assocStNumWASTimeout
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.43.0
+      key: assocStNumWASTimeout
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: f7be37349e134879b2e18941857956e9
+      name: bgpStNumInetSessionDown
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.3.3.1.0
+      key: bgpStNumInetSessionDown
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: b6a31c456e6946adbe72d5fec6ccc77a
+        expression: count(/JupiterIPGW/bgpStNumInetSessionDown,#180)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: count(/JupiterIPGW/bgpStNumInetSessionDown,60s)=0
+        name: BGP session Down
+        priority: INFO
+        manual_close: YES
+    - uuid: 52ea642a73784553b24405e96c89fa67
+      name: cirStCurrCir
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.5.3.4.2.0
+      key: cirStCurrCir
+      delay: 60s
+      history: 90d
+    - uuid: e3aebdcd5c2c44d587ba52f7c1ee618a
+      name: clsStNoRuleMatchCount
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.4.3.1.5.0
+      key: clsStNoRuleMatchCount
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: eceb34c128b9404498241e0692246f50
+        expression: last(/JupiterIPGW/clsStNoRuleMatchCount)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/clsStNoRuleMatchCount)=0
+        name: GW No Rule Matched
+        priority: HIGH
+        manual_close: YES
+    - uuid: 662882f0eecd462ea8ea75c04d934b42
+      name: Discovery
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.2.1.1.2.0
+      key: Discovery
+      delay: 60s
+      history: 90d
+      value_type: TEXT
+      trends: '0'
+    - uuid: c8c7a8d898f94fde918e20a1e21eeff8
+      name: fcStAssignMsgRx
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.5.3.5.2.0
+      key: fcStAssignMsgRx
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: 5189c40158724ae2ae5d4387ba796321
+      name: fcStRedAvgDelayBulk
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.5.3.5.35.0
+      key: fcStRedAvgDelayBulk
+      delay: 60s
+      history: 90d
+      triggers:
+      - uuid: 8e55f507773649779cc90af5320fdd45
+        expression: last(/JupiterIPGW/fcStRedAvgDelayBulk)>5000
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/fcStRedAvgDelayBulk)<5000
+        name: GW FC Avg RED Delay Bulk
+        priority: HIGH
+        manual_close: YES
+    - uuid: 1883f64c9a5e4256a1fa3623a0529dee
+      name: fcStRedAvgDelayInteract
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.5.3.5.33.0
+      key: fcStRedAvgDelayInteract
+      delay: 60s
+      history: 90d
+      triggers:
+      - uuid: 3eddbe763ea24009a7567f1e241aa951
+        expression: last(/JupiterIPGW/fcStRedAvgDelayInteract)>600
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/fcStRedAvgDelayInteract)<600
+        name: GW FC AVG RED Delay Interactive
+        priority: HIGH
+        manual_close: YES
+    - uuid: b84325d76cd74b5dbd7d4cd17b21d5c6
+      name: fcStRedAvgDelaySteaming
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.5.3.5.34.0
+      key: fcStRedAvgDelaySteaming
+      delay: 60s
+      history: 90d
+      triggers:
+      - uuid: 33ad0daa961f4a518e294338a57012d5
+        expression: last(/JupiterIPGW/fcStRedAvgDelaySteaming)>2000
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/fcStRedAvgDelaySteaming)<2000
+        name: GW FC Avg RED Delay Streaming
+        priority: HIGH
+        manual_close: YES
+    - uuid: 75f26683608243109d8337d4b0a45c30
+      name: fcStRedProbBulk
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.5.3.5.29.0
+      key: fcStRedProbBulk
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 21d874752a1d47f1957ca29ed681de33
+        expression: last(/JupiterIPGW/fcStRedProbBulk)>=1500
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/fcStRedProbBulk)<1500
+        name: GW FC RED Drop Bulk
+        priority: HIGH
+        manual_close: YES
+    - uuid: 66bd542fcfbe42e9b1be99e7e5b722b5
+      name: fcStRedProbInteractive
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.5.3.5.27.0
+      key: fcStRedProbInteractive
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 0cba9169249d4c929f48342534884e4d
+        expression: last(/JupiterIPGW/fcStRedProbInteractive)>=1500
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/fcStRedProbInteractive)<1500
+        name: GW FC RED Drop Interactive
+        priority: HIGH
+        manual_close: YES
+    - uuid: 7440006c357d4ca3be338e0d47405763
+      name: fcStRedProbStreaming
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.5.3.5.28.0
+      key: fcStRedProbStreaming
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: b7f75a0f85ba4744ae8550f4de2d27aa
+        expression: last(/JupiterIPGW/fcStRedProbStreaming)>=1500
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/fcStRedProbStreaming)<1500
+        name: GW FC RED Drop Streaming
+        priority: HIGH
+        manual_close: YES
+    - uuid: d1086a47525c404ba886e9816c159245
+      name: intfStEntRxQOverflow
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.1.31.0
+      key: intfStEntRxQOverflow
+      delay: 60s
+      history: 90d
+      triggers:
+      - uuid: 8d575113afcd4664885e1100515bbfe3
+        expression: last(/JupiterIPGW/intfStEntRxQOverflow)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/intfStEntRxQOverflow)=0
+        name: GW ENTRxQ Write Failures
+        priority: HIGH
+        manual_close: YES
+    - uuid: c5fb6344d1cb4d76b84692c2a2edc74a
+      name: intfStMuxCIRQOverflow
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.1.33.0
+      key: intfStMuxCIRQOverflow
+      delay: 60s
+      history: 90d
+      triggers:
+      - uuid: eaab3a1c177a43d0bf06430f0e90362f
+        expression: last(/JupiterIPGW/intfStMuxCIRQOverflow)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/intfStMuxCIRQOverflow)=0
+        name: GW MuxCIRQ Write Failures
+        priority: HIGH
+        manual_close: YES
+    - uuid: 4787123786494bf5a05387eedf2b3778
+      name: intfStMuxIpv6FramesTx
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.1.19.0
+      key: intfStMuxIpv6FramesTx
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: 9eb80d8da7ac4c4ba640ef8b4e2534eb
+      name: intfStWanRxQOverflow
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.1.32.0
+      key: intfStWanRxQOverflow
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 86d0a8256ee24a55a43e9f8c19d69640
+        expression: last(/JupiterIPGW/intfStWanRxQOverflow)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/intfStWanRxQOverflow)=0
+        name: GW WANRxQ Write Failures
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: bb80aae1bb0848c9841c6cc273765245
+      name: ipgwStAqmAllocFails
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.5.1.0
+      key: ipgwStAqmAllocFails
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 62441dbec12141ab830361095b3340a8
+        expression: last(/JupiterIPGW/ipgwStAqmAllocFails)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/ipgwStAqmAllocFails)=0
+        name: GW AQM Allocation Failed
+        priority: HIGH
+        manual_close: YES
+    - uuid: 4eff59b93f13467e8ee7d1cce151c353
+      name: NumAsocTerminals
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.13.0
+      key: NumAsocTerminals
+      delay: 60s
+      history: 90d
+      triggers:
+      - uuid: 2bbcc6396a574df9b8cfad54a8962852
+        expression: last(/JupiterIPGW/NumAsocTerminals)=0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumAsocTerminals)<>0
+        name: Num Assoc Zero
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 87c42a5dc16a4b9fa236d507c9c44f46
+      name: NumCcbDenied
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.4.3.3.14.0
+      key: NumCcbDenied
+      delay: 60s
+      history: 90d
+    - uuid: e29ada4ae9ba4072877d3dc76c306dac
+      name: NumCRRxedFrVsat
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.4.3.3.21.0
+      key: NumCRRxedFrVsat
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: d224eb0c47694ca290e94496802cdb22
+      name: NumCRTxedToVsat
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.4.3.3.20.0
+      key: NumCRTxedToVsat
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: 5f1acdaad55b441bbba2d1a5d4465971
+      name: NumRejectIpgwOutOfSvc
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.4.0
+      key: NumRejectIpgwOutOfSvc
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 0cab95ff3e194559b02235aa1a632129
+        expression: last(/JupiterIPGW/NumRejectIpgwOutOfSvc)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumRejectIpgwOutOfSvc)=0
+        name: GW Term Assoc Rejects GW OOS
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 9251f18fc5fe4e3fa1a891b7ea526af9
+      name: NumRejInvlidAscReq
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.30.0
+      key: NumRejInvlidAscReq
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: cd521fb5bdb54e6fa9c0b30e370d1e64
+        expression: last(/JupiterIPGW/NumRejInvlidAscReq)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumRejInvlidAscReq)=0
+        name: GW Term Assoc Rejected
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: a87d6411a4f84f0ab335a0166e0d930b
+      name: NumRejIpgwOutOfIPSubnet
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.6.0
+      key: NumRejIpgwOutOfIPSubnet
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 351e29b6d066484e85cb31806f97baae
+        expression: last(/JupiterIPGW/NumRejIpgwOutOfIPSubnet)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumRejIpgwOutOfIPSubnet)=0
+        name: GW Term Assoc Rejects GW Out of Subnets
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 288aa5f7cbe44a8b92dbdb598064e902
+      name: NumRejIpgwOverload
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.5.0
+      key: NumRejIpgwOverload
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: ff0e30547e05404e8c79e148b41b901b
+        expression: last(/JupiterIPGW/NumRejIpgwOverload)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumRejIpgwOverload)=0
+        name: GW Term Assoc Rejects GW Overload
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 67ee964bdb1c4f6ebb61933f9c88c51c
+      name: NumRejProtocolErr
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.8.0
+      key: NumRejProtocolErr
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: b646a2064aed40099c275e8b526931b7
+        expression: last(/JupiterIPGW/NumRejProtocolErr)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumRejProtocolErr)=0
+        name: GW Term Assoc Rejects GW Protocol Error
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 848ba2a8f23e4a7cb12db154c5d716e9
+      name: NumRejSignatureMismtch
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.7.0
+      key: NumRejSignatureMismtch
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 204df9fe83d8447282ca602c1e69f5b5
+        expression: last(/JupiterIPGW/NumRejSignatureMismtch)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumRejSignatureMismtch)=0
+        name: GW Term Assoc Rejects GW Signature Mismatch
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 4e29c8fdbf394a76a712536bccc3155f
+      name: NumRejSuspStatMismtch
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.10.0
+      key: NumRejSuspStatMismtch
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 2ce3b4806f7e4b8885eaabc7191cc06b
+        expression: last(/JupiterIPGW/NumRejSuspStatMismtch)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumRejSuspStatMismtch)=0
+        name: GW Term Assoc Rejects GW Suspend Mismatch
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 9cba4f13faf94c6a88fba0e89c6c04a7
+      name: NumRejUnsupSvcParam
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.9.0
+      key: NumRejUnsupSvcParam
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 3a2cbefd149e4bdf90bae76ce28e42e5
+        expression: last(/JupiterIPGW/NumRejUnsupSvcParam)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumRejUnsupSvcParam)=0
+        name: GW Term Assoc Rejects GW Unsupported Serv. Param
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 7ea5fb9d7ee74c22a1b7b62958de8a17
+      name: NumReqDrpInvlidWANPre
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.2.3.29.0
+      key: NumReqDrpInvlidWANPre
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 3acbe5cef29742beb73fb089d1d0d1d4
+        expression: last(/JupiterIPGW/NumReqDrpInvlidWANPre)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/NumReqDrpInvlidWANPre)=0
+        name: GW Term Assoc Dropped Invalid WAN Prefix
+        priority: AVERAGE
+        manual_close: YES
+    - uuid: 8b9c1860b5d14572bcc43523ef2bf2c8
+      name: NumSpoofedTcpPktTxedToVsat
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.4.3.3.4.0
+      key: NumSpoofedTcpPktTxedToVsat
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: 20743bb1458d44b5aae63371be2b4017
+      name: NumSynUnspofedFrmEnt
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.4.3.3.11.0
+      key: NumSynUnspofedFrmEnt
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: 47e69acf662d41db9cad8802d7eac68d
+      name: opStOperationalStatus
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.3.1.0
+      key: opStOperationalStatus
+      delay: 60s
+      history: 90d
+      triggers:
+      - uuid: b063ea979b8244fc9223bebbd20e8b56
+        expression: last(/JupiterIPGW/opStOperationalStatus)=3 or last(/JupiterIPGW/opStOperationalStatus)=4
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/opStOperationalStatus)<>3 and last(/JupiterIPGW/opStOperationalStatus)<>4
+        name: GW Operational State
+        priority: HIGH
+        manual_close: YES
+    - uuid: 2b18e8070b3544a9985ec180b5643e06
+      name: rdStRedundancyStatus
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.4.3.0
+      key: rdStRedundancyStatus
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: 143e5a745ed64131b4fa41db8c07f423
+      name: SNMP walk Association
+      type: SNMP_AGENT
+      snmp_oid: 
+        walk[1.3.6.1.4.1.303.3.3.45.4.2.3.56.1.1,1.3.6.1.4.1.303.3.3.45.4.2.3.56.1.2,1.3.6.1.4.1.303.3.3.45.4.2.3.56.1.4]
+      key: snmp.walk.association
+      value_type: CHAR
+      trends: '0'
+    - uuid: 8d0f30fe05344c3aac69e5f11b3f4254
+      name: storStEssnFileWriteFails
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.6.1.0
+      key: storStEssnFileWriteFails
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: e9f4e34d1a28446dbe7bc92283a10bb1
+        expression: last(/JupiterIPGW/storStEssnFileWriteFails)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/storStEssnFileWriteFails)=0
+        name: GW Essential Stats Write Failures
+        priority: HIGH
+        manual_close: YES
+      - uuid: c73e61bde3be4913822b2239074ed90a
+        expression: last(/JupiterIPGW/storStEssnFileWriteFails)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/storStEssnFileWriteFails)=0
+        name: GW Session Stats Write Failures
+        priority: HIGH
+        manual_close: YES
+    - uuid: 44170311725b4078a9534de3d0db77c9
+      name: storStIncsFileWriteFails
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.6.4.0
+      key: storStIncsFileWriteFails
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: 2e731fd21d2e4af9af35aab49df3364a
+      name: storStSessFileWriteFails
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.6.3.0
+      key: storStSessFileWriteFails
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    - uuid: 65acbb824d4341b0aa49ecb6896ec58f
+      name: storStVupsFileWriteFails
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.1.3.6.5.0
+      key: storStVupsFileWriteFails
+      delay: 60s
+      history: 90d
+      status: DISABLED
+      triggers:
+      - uuid: 67b0893a17954834a7a998941c2d20e4
+        expression: last(/JupiterIPGW/storStVupsFileWriteFails)>0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/JupiterIPGW/storStVupsFileWriteFails)=0
+        name: GW Failed Volume Usage Writes
+        priority: HIGH
+        manual_close: YES
+    - uuid: 0a2c7532ca8c42debc25c82d776a8235
+      name: TotTcpPktsUnspofedFrEnt
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.4.4.3.3.12.0
+      key: TotTcpPktsUnspofedFrEnt
+      delay: 60s
+      history: 90d
+      status: DISABLED
+    discovery_rules:
+    - uuid: 029444175202446b9c45e23c34c55556
+      name: Terminal Per Outroute
+      type: DEPENDENT
+      key: assocStPerOutrouteTable
+      delay: '0'
+      item_prototypes:
+      - uuid: 5b2f6b5b55a749f7821d8d94efeb0c0c
+        name: 'Associated Terminals Outroute: {#ORNAME}'
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.4.2.3.56.1.4.{#SNMPINDEX}
+        key: outroute.terminal[{#SNMPINDEX}]
+      master_item:
+        key: snmp.walk.association
+      preprocessing:
+      - type: SNMP_WALK_TO_JSON
+        parameters:
+        - '{#ORIDX}'
+        - 1.3.6.1.4.1.303.3.3.45.4.2.3.56.1.1
+        - '0'
+        - '{#ORNAME}'
+        - 1.3.6.1.4.1.303.3.3.45.4.2.3.56.1.2
+        - '0'
+        - '{#NUMTERM}'
+        - 1.3.6.1.4.1.303.3.3.45.4.2.3.56.1.4
+        - '0'
+    macros:
+    - macro: '{$NOC_SNMP_COMMUNITY}'
+      value: jupnocro
+  triggers:
+  - uuid: d83f568ada6a4104bb0c158b43d47da0
+    expression: 
+      ((last(/JupiterIPGW/NumCcbDenied)*100)/(last(/JupiterIPGW/NumCRRxedFrVsat)+last(/JupiterIPGW/NumCRTxedToVsat)))
+      > 10
+    recovery_mode: RECOVERY_EXPRESSION
+    recovery_expression: 
+      ((last(/JupiterIPGW/NumCcbDenied)*100)/(last(/JupiterIPGW/NumCRRxedFrVsat)+last(/JupiterIPGW/NumCRTxedToVsat)))
+      < 5
+    name: GW CCBs Not Available
+    priority: HIGH
+    manual_close: YES
+  - uuid: c831729a6841421ca0f88da220f17a62
+    expression: last(/JupiterIPGW/fcStAssignMsgRx)=0 and last(/JupiterIPGW/rdStRedundancyStatus)=3
+    recovery_mode: RECOVERY_EXPRESSION
+    recovery_expression: last(/JupiterIPGW/fcStRedAvgDelayBulk)>0 or last(/JupiterIPGW/rdStRedundancyStatus)=2
+    name: GW FC BW Assignment Msgs from SGW Stopped
+    priority: HIGH
+    manual_close: YES
+  - uuid: f1466e8c05894bf0833d2c5dbde8f217
+    expression: last(/JupiterIPGW/intfStMuxIpv6FramesTx)=0 and last(/JupiterIPGW/NumAsocTerminals)>0
+    recovery_mode: RECOVERY_EXPRESSION
+    recovery_expression: last(/JupiterIPGW/intfStMuxIpv6FramesTx)>0 or last(/JupiterIPGW/NumAsocTerminals)=0
+    name: GW Stopped Transmitting Mux IPv6 Frames
+    priority: HIGH
+    manual_close: YES
+  - uuid: 6e10bc78180e4063a2990cf3c52f75cf
+    expression: (last(/JupiterIPGW/NumSpoofedTcpPktTxedToVsat)>0) and 
+      ((last(/JupiterIPGW/TotTcpPktsUnspofedFrEnt)*100)/(last(/JupiterIPGW/NumSpoofedTcpPktTxedToVsat)))
+      > 10
+    recovery_mode: RECOVERY_EXPRESSION
+    recovery_expression: |
+      (last(/JupiterIPGW/TotTcpPktsUnspofedFrEnt)=0) or 
+      (last(/JupiterIPGW/NumSpoofedTcpPktTxedToVsat)>0 and ((last(/JupiterIPGW/TotTcpPktsUnspofedFrEnt)*100)) / (last(/JupiterIPGW/NumSpoofedTcpPktTxedToVsat)<5))
+    name: GW TCP Pkts Unspoofed From Ent
+    priority: HIGH
+    manual_close: YES
+  - uuid: eb123e545690443eb265722012278cf8
+    expression: (last(/JupiterIPGW/NumCRRxedFrVsat) + last(/JupiterIPGW/NumCRTxedToVsat))
+      > 0 and (last(/JupiterIPGW/NumSynUnspofedFrmEnt)*100) / (last(/JupiterIPGW/NumCRRxedFrVsat)
+      + last(/JupiterIPGW/NumCRTxedToVsat)) >10
+    recovery_mode: RECOVERY_EXPRESSION
+    recovery_expression: (last(/JupiterIPGW/NumCRRxedFrVsat) + last(/JupiterIPGW/NumCRTxedToVsat))
+      > 0 and (last(/JupiterIPGW/NumSynUnspofedFrmEnt)*100) / (last(/JupiterIPGW/NumCRRxedFrVsat)
+      + last(/JupiterIPGW/NumCRTxedToVsat)) < 5
+    name: GW TCP Syn Pkts Unspoofed From Ent
+    priority: HIGH
+    manual_close: YES
+  graphs:
+  - uuid: 208c2d7e580d4b978d189be14ae244af
+    name: BGPSessions
+    graph_items:
+    - color: 199C0D
+      item:
+        host: JupiterIPGW
+        key: bgpStNumInetSessionDown
+  - uuid: 0095b190cbac41319828d168d6b5014e
+    name: IPGWCirAndOverFlow
+    graph_items:
+    - color: 199C0D
+      item:
+        host: JupiterIPGW
+        key: cirStCurrCir
+    - sortorder: '1'
+      color: F63100
+      yaxisside: RIGHT
+      item:
+        host: JupiterIPGW
+        key: intfStMuxCIRQOverflow

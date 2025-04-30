@@ -1,0 +1,460 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: HNS/HughesJ3
+  - uuid: 4cd2a1eaedcc4e5995d5d787bbc3971d
+    name: HNS/HughesJupiter
+  templates:
+  - uuid: 2c5cac1e6b864e7c88fab648a4f1fc5b
+    template: IBM GwStats API Discovery
+    name: IBM GwStats API Discovery
+    description: This template will monitor the satelliteBits field in a JSON response
+      from the URL http://<fqdn>:8080/ibm/api/gateway/stats/current.
+    groups:
+    - name: HNS/HughesJ3
+    - name: HNS/HughesJupiter
+    discovery_rules:
+    - uuid: 286fc5ef05aa4fe98828d71bee3f2e9e
+      name: Gateway Stats Discovery
+      type: HTTP_AGENT
+      key: Gateway.IBM.discovery
+      lifetime: 30d
+      enabled_lifetime_type: DISABLE_NEVER
+      item_prototypes:
+      - uuid: c69d97115bc34f73bd74c1edd0f72381
+        name: Return.demand.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.demand.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].demand
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: 3ed5db6d0bfd4b80acae9f95ccc300a6
+        name: Return.gatewaythroughputLimit.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.gatewaythroughputLimit.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].gatewaythroughputLimit
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: 14ac7598a0404c5ca0ec5c54da9632e9
+        name: Return.MaxGuarSubscriptionRate VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.MaxGuarSubscriptionRate.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].MaxGuarSubscriptionRate
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: 807dcfdf6c4a4408bb9f158358471f2e
+        name: Return.MaxSubscriptionRate VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.MaxSubscriptionRate.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].MaxSubscriptionRate
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: 9c3c5d33dc0a4bd0ace747d1ca0c70c4
+        name: Return.MinGuarSubscriptionRate VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.MinGuarSubscriptionRate.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].MinGuarSubscriptionRate
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: cd3ac6576d7c4317bc2544dd55c96d54
+        name: Return.numACBRTerminals.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.numACBRTerminals.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].numACBRTerminals
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: 5ef2f1ba73cd4412b1e63ca2ff003f24
+        name: Return.numActiveTerminals.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.numActiveTerminals.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].numActiveTerminals
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: cd4c562d9f8b4641b6fd8bff0856dbaf
+        name: Return.numBETerminals.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.numBETerminals.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].numBETerminals
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: d3720f92be23419e91b27129f9275637
+        name: Return.numCIRTerminals.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.numCIRTerminals.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].numCIRTerminals
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: e1e84ca0b00c4f1a9d6e8bb0bd6624c9
+        name: Return.offeredLoad.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.offeredLoad.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].offeredLoad
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: edd1944d705f420ba4d83b3490760aad
+        name: Return.offeredLoadCBR.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.offeredLoadCBR.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].offeredLoadCBR
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: 4dbe8044494841f1ba0d16f896ca9581
+        name: Return.overallAssignedThroughputLimit.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.overallAssignedThroughputLimit.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].overallAssignedThroughputLimit
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: b93d7d84cb464e1db3db3f5f91bb9019
+        name: Return.satelliteThroughput VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.satelliteThroughputVNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].satelliteThroughput
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: affdf9e1c3a6448296cf4bcd1671755c
+        name: Return.satelliteUsage.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.satelliteUsage.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].satelliteUsage
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: 053fdef2190d42a69a938af6ff020168
+        name: Return.satelliteUsageCBR.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.satelliteUsageCBR.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].satelliteUsageCBR
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      - uuid: e51f8ec33cb94ad0af75ee82eb686068
+        name: Return.subscriptionGuarCIR.VNO {#VNOID}
+        type: HTTP_AGENT
+        key: Return.subscriptionGuarCIR.VNO[{#VNOID}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].subscriptionGuarCIR
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+        tags:
+        - tag: GW_VNO_LEVEL
+          value: '{#VNOID}'
+      url: http://{HOST.CONN}:{$LLD_PORT}/ibm/api/gateway/stats/current
+      follow_redirects: NO
+      lld_macro_paths:
+      - lld_macro: '{#ACTIVECBRMULTICASTUSAGE}'
+        path: $.ActiveCbrMulticastUsage
+      - lld_macro: '{#BANDWIDTHSTATUS}'
+        path: $.bandwidthStatus
+      - lld_macro: '{#BASEEMA}'
+        path: $.baseEma
+      - lld_macro: '{#CURRENTEEMA}'
+        path: $.currentEma
+      - lld_macro: '{#DEMAND}'
+        path: $.demand
+      - lld_macro: '{#GATEWAYTHROUGHPUTLIMIT}'
+        path: $.gatewaythroughputLimit
+      - lld_macro: '{#MAXGUARSUBSCRIPTIONRATE}'
+        path: $.MaxGuarSubscriptionRate
+      - lld_macro: '{#MAXSUBSCRIPTIONRATE}'
+        path: $.MaxSubscriptionRate
+      - lld_macro: '{#MINGUARSUBSCRIPTIONRATE}'
+        path: $.MinGuarSubscriptionRate
+      - lld_macro: '{#NUMACBRTERMINALS}'
+        path: $.numACBRTerminals
+      - lld_macro: '{#NUMACTIVECBRMULTICASTSESSIONS}'
+        path: $.NumActiveCbrMulticastSessions
+      - lld_macro: '{#NUMACTIVENONSIPCALLS}'
+        path: $.numActiveNonSipCalls
+      - lld_macro: '{#NUMACTIVESIPCALLS}'
+        path: $.numActiveSipCalls
+      - lld_macro: '{#NUMACTIVETERMINALS}'
+        path: $.numActiveTerminals
+      - lld_macro: '{#NUMBETERMINALS}'
+        path: $.numBETerminals
+      - lld_macro: '{#NUMCBRMULTICASTREQUESTACCEPTED}'
+        path: $.numCbrMulticastRequestAccepted
+      - lld_macro: '{#NUMCBRMULTICASTREQUESTREJECTED}'
+        path: $.numCbrMulticastRequestRejected
+      - lld_macro: '{#NUMCIRTERMINALS}'
+        path: $.numCIRTerminals
+      - lld_macro: '{#NUMNONSIPCALLSACCEPTED}'
+        path: $.numNonSipCallsAccepted
+      - lld_macro: '{#NUMNONSIPCALLSREJECTED}'
+        path: $.numNonSipCallsRejected
+      - lld_macro: '{#NUMSIPCALLSACCEPTED}'
+        path: $.numSipCallsAccepted
+      - lld_macro: '{#NUMSIPCALLSREJECTED}'
+        path: $.numSipCallsRejected
+      - lld_macro: '{#NUMTCBETERMINALS}'
+        path: $.numTCBETerminals
+      - lld_macro: '{#OFFEREDLOADCBR}'
+        path: $.offeredLoadCBR
+      - lld_macro: '{#OFFEREDLOAD}'
+        path: $.offeredLoad
+      - lld_macro: '{#OVERALLASSIGNEDTHROUGHPUTLIMIT}'
+        path: $.overallAssignedThroughputLimit
+      - lld_macro: '{#PROPOSEDALLOC}'
+        path: $.ProposedAlloc
+      - lld_macro: '{#SATELLITEALLOCATION}'
+        path: $.satelliteAllocation
+      - lld_macro: '{#SATELLITETHROUGHPUT}'
+        path: $.satelliteThroughput
+      - lld_macro: '{#SATELLITEUSAGECBR}'
+        path: $.satelliteUsageCBR
+      - lld_macro: '{#SATELLITEUSAGE}'
+        path: $.satelliteUsage
+      - lld_macro: '{#SUBSCRIPTIONGUARCIR}'
+        path: $.subscriptionGuarCIR
+      - lld_macro: '{#SUBSCRIPTIONMAXACBR}'
+        path: $.subscriptionMaxACBR
+      - lld_macro: '{#SUBSCRIPTIONMAXBE}'
+        path: $.subscriptionMaxBE
+      - lld_macro: '{#SUBSCRIPTIONMAXCIR}'
+        path: $.subscriptionMaxCIR
+      - lld_macro: '{#SUBSCRIPTIONMAXTCBE}'
+        path: $.subscriptionMaxTCBE
+      - lld_macro: '{#SUBSCRIPTIONMINACBR}'
+        path: $.subscriptionMinACBR
+      - lld_macro: '{#SUBSCRIPTIONMINCIR}'
+        path: $.subscriptionMinCIR
+      - lld_macro: '{#THROUGHPUTLIMITCBR}'
+        path: $.throughputLimitCBR
+      - lld_macro: '{#THROUGHPUTLIMITMIN}'
+        path: $.throughputLimitMin
+      - lld_macro: '{#THROUGHPUTLIMIT}'
+        path: $.throughputLimit
+      - lld_macro: '{#VNOID}'
+        path: $.vnoId
+      - lld_macro: '{#VNOMODE}'
+        path: $.vnoMode
+      - lld_macro: '{#VNOMULTIBEAMSUBSCRIPTION}'
+        path: $.vnoMultiBeamSubscription
+      - lld_macro: '{#VNONAME}'
+        path: $.vnoName
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.data.items[*]
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          var array = JSON.parse(value);
+          var output = [];
+
+          // Extracting "beamId", "beamName", and "beamStats" values
+          if (array && Array.isArray(array) && array.length > 0) {
+              output = array.map(function(item) {
+                  return {
+                          "ActiveCbrMulticastUsage": item.ActiveCbrMulticastUsage,
+                          "MaxGuarSubscriptionRate": item.MaxGuarSubscriptionRate,
+                          "MaxSubscriptionRate": item.MaxSubscriptionRate,
+                          "MinGuarSubscriptionRate": item.MinGuarSubscriptionRate,
+                          "NumActiveCbrMulticastSessions": item.NumActiveCbrMulticastSessions,
+                          "ProposedAlloc": item.ProposedAlloc,
+                          "bandwidthStatus": item.bandwidthStatus,
+                          "baseEma": item.baseEma,
+                          "currentEma": item.currentEma,
+                          "demand": item.demand,
+                          "gatewaythroughputLimit": item.gatewaythroughputLimit,
+                          "numACBRTerminals": item.numACBRTerminals,
+                          "numActiveNonSipCalls": item.numActiveNonSipCalls,
+                          "numActiveSipCalls": item.numActiveSipCalls,
+                          "numActiveTerminals": item.numActiveTerminals,
+                          "numBETerminals": item.numBETerminals,
+                          "numCIRTerminals": item.numCIRTerminals,
+                          "numCbrMulticastRequestAccepted": item.numCbrMulticastRequestAccepted,
+                          "numCbrMulticastRequestRejected": item.numCbrMulticastRequestRejected,
+                          "numNonSipCallsAccepted": item.numNonSipCallsAccepted,
+                          "numNonSipCallsRejected": item.numNonSipCallsRejected,
+                          "numSipCallsAccepted": item.numSipCallsAccepted,
+                          "numSipCallsRejected": item.numSipCallsRejected,
+                          "numTCBETerminals": item.numTCBETerminals,
+                          "offeredLoad": item.offeredLoad,
+                          "offeredLoadCBR": item.offeredLoadCBR,
+                          "overallAssignedThroughputLimit": item.overallAssignedThroughputLimit,
+                          "satelliteAllocation": item.satelliteAllocation,
+                          "satelliteThroughput": item.satelliteThroughput,
+                          "satelliteUsage": item.satelliteUsage,
+                          "satelliteUsageCBR": item.satelliteUsageCBR,
+                          "subscriptionGuarCIR": item.subscriptionGuarCIR,
+                          "subscriptionMaxACBR": item.subscriptionMaxACBR,
+                          "subscriptionMaxBE": item.subscriptionMaxBE,
+                          "subscriptionMaxCIR": item.subscriptionMaxCIR,
+                          "subscriptionMaxTCBE": item.subscriptionMaxTCBE,
+                          "subscriptionMinACBR": item.subscriptionMinACBR,
+                          "subscriptionMinCIR": item.subscriptionMinCIR,
+                          "throughputLimit": item.throughputLimit,
+                          "throughputLimitCBR": item.throughputLimitCBR,
+                          "throughputLimitMin": item.throughputLimitMin,
+                          "vnoId": item.vnoId,
+                          "vnoMode": item.vnoMode,
+                          "vnoMultiBeamSubscription": item.vnoMultiBeamSubscription,
+                          "vnoName": item.vnoName
+                  };
+              });
+          }
+
+          // Convert output to JSON string
+          var outputJSON = JSON.stringify(output);
+
+          // Return the JSON string
+          return outputJSON;
+    macros:
+    - macro: '{$LLD_PORT}'
+      value: '8080'
