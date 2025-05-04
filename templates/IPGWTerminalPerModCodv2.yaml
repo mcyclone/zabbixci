@@ -1,0 +1,135 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: a44bc2aad070448199f190901fa0915d
+    name: Templates/HughesJupiterGW
+  templates:
+  - uuid: fe9488f406fc47ddb2bfbd67a6b5f028
+    template: IPGWTerminalPerModCodv2
+    name: IPGWTerminalPerModCodv2
+    groups:
+    - name: Templates/HughesJupiterGW
+    items:
+    - uuid: 26d7da628b074f8888a322a4e83ed1b5
+      name: TotalTerminalPerModCod
+      type: HTTP_AGENT
+      key: TotalTerminalPerModCod
+      delay: 5m
+      history: 90d
+      value_type: CHAR
+      trends: '0'
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.data.stats.globalAcmStats.terminalsPerModcod
+      url: http://{HOST.DNS}:8080/cgi-bin/command.cgi
+      query_fields:
+      - name: command
+        value: '9002'
+    discovery_rules:
+    - uuid: f04d4c276d7e4791b3e3b0a3101adfb6
+      name: MODCOD Discovery
+      type: DEPENDENT
+      key: MODCOD.Discovery.v2
+      delay: '0'
+      lifetime_type: DELETE_NEVER
+      lifetime: '0'
+      enabled_lifetime_type: DISABLE_NEVER
+      item_prototypes:
+      - uuid: 1f366b70684f4d03afc97d809ccbe954
+        name: Modcod{#MODCOD}
+        type: DEPENDENT
+        key: modcod.value[{#MODCOD}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.{#MODCOD}
+        master_item:
+          key: TotalTerminalPerModCod
+        tags:
+        - tag: app
+          value: modcod
+      graph_prototypes:
+      - uuid: e01e790aee61450680725ee5c8ed653e
+        name: TotalTerminalPerModCod
+        yaxismax: '0'
+        show_work_period: NO
+        show_triggers: NO
+        type: PIE
+        graph_items:
+        - color: 6C59DC
+          calc_fnc: MIN
+          item:
+            host: IPGWTerminalPerModCodv2
+            key: modcod.value[{#MODCOD}]
+        - sortorder: '1'
+          color: '274482'
+          calc_fnc: MIN
+          item:
+            host: IPGWTerminalPerModCodv2
+            key: modcod.value[{#MODCOD}]
+        - sortorder: '2'
+          color: 1A7C11
+          calc_fnc: MIN
+          item:
+            host: IPGWTerminalPerModCodv2
+            key: modcod.value[{#MODCOD}]
+        - sortorder: '3'
+          color: F63100
+          calc_fnc: MIN
+          item:
+            host: IPGWTerminalPerModCodv2
+            key: modcod.value[{#MODCOD}]
+        - sortorder: '4'
+          color: 2774A4
+          calc_fnc: MIN
+          item:
+            host: IPGWTerminalPerModCodv2
+            key: modcod.value[{#MODCOD}]
+        - sortorder: '5'
+          color: A54F10
+          calc_fnc: MIN
+          item:
+            host: IPGWTerminalPerModCodv2
+            key: modcod.value[{#MODCOD}]
+        - sortorder: '6'
+          color: FC6EA3
+          calc_fnc: MIN
+          item:
+            host: IPGWTerminalPerModCodv2
+            key: modcod.value[{#MODCOD}]
+      master_item:
+        key: TotalTerminalPerModCod
+      preprocessing:
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          var output = { "data": [] };
+          var input = JSON.parse(value);
+          for (var key in input) {
+              if (input[key] > 0) { // Only include non-zero values
+                  output.data.push({"{#MODCOD}": key});
+              }
+          }
+          return JSON.stringify(output);
+    dashboards:
+    - uuid: d2f5ff184bde422dbbffac2c8027a5f4
+      name: New dashboard
+      pages:
+      - widgets:
+        - type: graphprototype
+          x: '12'
+          y: '1'
+          width: '48'
+          height: '5'
+          fields:
+          - type: GRAPH_PROTOTYPE
+            name: graphid.0
+            value:
+              host: IPGWTerminalPerModCodv2
+              name: TotalTerminalPerModCod
+          - type: STRING
+            name: reference
+            value: CZDTP

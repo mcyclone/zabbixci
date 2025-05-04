@@ -1,0 +1,681 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: Templates/HughesJ3
+  - uuid: 4cd2a1eaedcc4e5995d5d787bbc3971d
+    name: Templates/HughesJupiter
+  templates:
+  - uuid: c6d66c7b5ed74ccd965cd0b1079b0a42
+    template: J3IGM
+    name: J3IGM
+    vendor:
+      name: Hughes Network System LLC
+      version: 7.0-0
+    templates:
+    - name: JupiterIGMApiDiscovery
+    - name: Linux by SNMP
+    groups:
+    - name: Templates/HughesJ3
+    - name: Templates/HughesJupiter
+    items:
+    - uuid: 7c0962f7a5a146f49bd1d35bb3cf8c35
+      name: clockFrameIdErrors
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.11.8.0
+      key: clockFrameIdErrors
+      delay: 60s
+      triggers:
+      - uuid: 8929aa9b93564b079f401d5b47f902bb
+        expression: change(/J3IGM/clockFrameIdErrors)>=1
+        name: Clock Frame ID Errors
+        priority: WARNING
+    - uuid: 6bd9ee1d09db49829e3cf9d9962fd79f
+      name: clockIdmDriverTimeouts
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.11.12.0
+      key: clockIdmDriverTimeouts
+      delay: 60s
+    - uuid: 2c765a2d6b71456dbfa6955a3dbfa18f
+      name: clockStCurrentFrameNumber
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.11.1.0
+      key: clockStCurrentFrameNumber
+      delay: 60s
+    - uuid: ef94aa51c07c46519e7a4e4adc78cd7a
+      name: clockStCurrentStateEnum
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.11.13.0
+      key: clockStCurrentStateEnum
+      delay: 60s
+      status: DISABLED
+    - uuid: 4d3f63169daa43f39f859c305bbefeb3
+      name: Discovery
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.2.1.1.2.0
+      key: Discovery
+      delay: 60s
+      value_type: TEXT
+      trends: '0'
+    - uuid: e8afd6f0fdd9449a85289749fdb061c3
+      name: glbBrstPrcStBurstsProcd
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.14.0
+      key: glbBrstPrcStBurstsProcd
+      delay: 60s
+    - uuid: c8bd93d5554b499bbabc164583f79ca6
+      name: globalBandwidthStCurrentLoopExecutionTime
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.12.6.0
+      key: globalBandwidthStCurrentLoopExecutionTime
+      delay: 60s
+      description: |
+        Time taken to execute one bandwidth allocation
+        loop during the last frame in microseconds.
+    - uuid: 9f4f7908e88e4f8498b69cdd6579648e
+      name: globalBurstProcessorPduCrcErrors
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.31.0
+      key: globalBurstProcessorPduCrcErrors
+      delay: 60s
+      description: Total number of PDU CRC errors detected during reassembly
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: 1d85a326b11a4cd4a163485228bb63d8
+      name: globalBurstProcessorStOverheadPercentage
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.5.0
+      key: globalBurstProcessorStOverheadPercentage
+      delay: 60s
+    - uuid: 3cc067126b9445cfbcecbae876b8b7ce
+      name: globalBurstProcessorStStreamErrorRate512k
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.15.0
+      key: globalBurstProcessorStStreamErrorRate512k
+      delay: 60s
+      value_type: FLOAT
+      description: Average Stream Error Rate for symbol rate 512k.
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: 7b5e7c76262047ccad685ffb656dac74
+      name: globalBurstProcessorStStreamErrorRate1024k
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.16.0
+      key: globalBurstProcessorStStreamErrorRate1024k
+      delay: 60s
+      value_type: FLOAT
+      description: Average Stream Error Rate for symbol rate 1024k.
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: 9cab7490957e45fa960752fd965207ce
+      name: globalBurstProcessorStStreamErrorRate2048k
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.17.0
+      key: globalBurstProcessorStStreamErrorRate2048k
+      delay: 60s
+      value_type: FLOAT
+      description: Average Stream Error Rate for symbol rate 2048k.
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: 102a09fd03904e14851d0f4169e23ebd
+      name: globalBurstProcessorStStreamErrorRate4096k
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.18.0
+      key: globalBurstProcessorStStreamErrorRate4096k
+      delay: 60s
+      value_type: FLOAT
+      description: Average Stream Error Rate for symbol rate 4096k.
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: 4c93c42d76a64e1896444e02452e969c
+      name: globalBurstProcessorStStreamErrorRateAboveFivePercentTerminals
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.22.0
+      key: globalBurstProcessorStStreamErrorRateAboveFivePercentTerminals
+      delay: 60s
+      status: DISABLED
+      description: Number of Terminals with > 5% Stream Error Rate
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: 2004f9b599184a01bfd23ad546802856
+      name: globalBurstProcessorStStreamErrorRateOneToFivePercentTerminals
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.21.0
+      key: globalBurstProcessorStStreamErrorRateOneToFivePercentTerminals
+      delay: 60s
+      status: DISABLED
+      description: Number of Terminals with Stream Error Rate between 1-5%
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: d1a9e085d4ad4ea898bdf7dc94cd23e0
+      name: globalBurstProcessorStStreamErrorRateUptoOnePercentTerminals
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.20.0
+      key: globalBurstProcessorStStreamErrorRateUptoOnePercentTerminals
+      delay: 60s
+      status: DISABLED
+      description: Number of Terminals with < 1% Stream Error Rate
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: 02dfe43b97cd4f949bf53b75c1370bac
+      name: globalBurstProcessorStTotalBurstContentBytesPerSecond
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.3.0
+      key: globalBurstProcessorStTotalBurstContentBytesPerSecond
+      delay: 60s
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: ce009eccd3f04dcb892160014035430c
+      name: globalBurstProcessorStTotalUserContentBytesPerSecond
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.1.4.0
+      key: globalBurstProcessorStTotalUserContentBytesPerSecond
+      delay: 60s
+      tags:
+      - tag: Application
+        value: IGM Global Application
+    - uuid: 42b745263f1a4aba88bb5ab7eedbc9de
+      name: globBWStNumExecTimeViols
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.12.1.0
+      key: globBWStNumExecTimeViols
+      delay: 60s
+    - uuid: 74a0b7557058405f815f23ab5c6b2256
+      name: globDriftCorrStTooBig
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.6.2.0
+      key: globDriftCorrStTooBig
+      delay: 60s
+      status: DISABLED
+    - uuid: a90d572b03b8421abea881e81e25107e
+      name: globTimSurvStPollsSenttoTU
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.5.2.0
+      key: globTimSurvStPollsSenttoTU
+      delay: 60s
+      status: DISABLED
+    - uuid: 8f3da12ed7834bb4a4e8abd735b1d5ae
+      name: GroupCfStatus
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.4.7.1.2
+      key: GroupCfStatus
+      delay: 60s
+    - uuid: d3c20e2b2a4d4e1bab48b0bb7d1b1bc8
+      name: grpBwStMxActTmOvPstHr
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.4.0
+      key: grpBwStMxActTmOvPstHr
+      delay: 60s
+    - uuid: a9904da9d8b54eb2a5ca5c7d84c0c4de
+      name: grpBwStTotNumOfTerm
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.5
+      key: grpBwStTotNumOfTerm
+      delay: 60s
+      triggers:
+      - uuid: 3fd68d915d56492da0d60607529914f9
+        expression: sum(/J3IGM/grpBwStTotNumOfTerm,#1)=0
+        name: Active Terminals on all inroutes Zero
+        priority: WARNING
+    - uuid: 917797fa2f9040b8ac4fb39a05ce64af
+      name: grpIgdpStAlohaLodMetric
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.8.1.1.4.0
+      key: grpIgdpStAlohaLodMetric
+      delay: 60s
+      status: DISABLED
+    - uuid: 30c370bbab894f73bb1dee33c79b5792
+      name: grpIgdpStIndex
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.8.1.1.1.0
+      key: grpIgdpStIndex
+      delay: 60s
+    - uuid: 637e1af64f4447689a9c788b3fe6aa31
+      name: grpIgdpStUserLoadMetric
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.8.1.1.5.0
+      key: grpIgdpStUserLoadMetric
+      delay: 60s
+      status: DISABLED
+    - uuid: 56112815b4694ea9a7c8bf677a728b19
+      name: inrtBrstProcStInrouteGroup
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.3.1.2.0
+      key: inrtBrstProcStInrouteGroup
+      delay: 60s
+    - uuid: 88449ad383be4a75b6d41ced1a341e52
+      name: inrtBrstProcStInrouteIndex
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.3.1.1.0
+      key: inrtBrstProcStInrouteIndex
+      delay: 60s
+    - uuid: 4f415152a6ba464fa018313781b0fe78
+      name: inrtBrstProcStPduMgmtRec
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.3.1.62.0
+      key: inrtBrstProcStPduMgmtRec
+      delay: 60s
+      status: DISABLED
+    - uuid: 623738c2fa7c48d5a0bb0f73bcb6d8a1
+      name: inrtBstProcStPduCrcFail
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.3.1.56.0
+      key: inrtBstProcStPduCrcFail
+      delay: 60s
+      status: DISABLED
+    - uuid: 2938196863714787834baef1eca1dcf7
+      name: inrtBstProcStPduDataRec
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.3.1.63.0
+      key: inrtBstProcStPduDataRec
+      delay: 60s
+      status: DISABLED
+    - uuid: 7bdb2e00d26e4304bda45bc6b36722ed
+      name: inrtBstProcStPduFragOwrt
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.3.1.61.0
+      key: inrtBstProcStPduFragOwrt
+      delay: 60s
+      status: DISABLED
+    - uuid: 6a0a284283c74b31b46d27486f0b9fd3
+      name: inrtBWStTotNumOfTerminals
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.12.4.1.3.0
+      key: inrtBWStTotNumOfTerminals
+      delay: 60s
+      triggers:
+      - uuid: 288f1fc23f164d51ac2da13c2d9eef08
+        expression: last(/J3IGM/inrtBWStTotNumOfTerminals)=0
+        recovery_mode: RECOVERY_EXPRESSION
+        recovery_expression: last(/J3IGM/inrtBWStTotNumOfTerminals)<>0
+        name: Active Terminals on  inroutes Set Zero
+        priority: HIGH
+        manual_close: YES
+    - uuid: 3170b74b57fa4041b17c78c260387556
+      name: inrtPwrCtrStStrmBrstAck
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.4.2.1.7.0
+      key: inrtPwrCtrStStrmBrstAck
+      delay: 60s
+      status: DISABLED
+    - uuid: a6c55b1975094d60b1fc85d58883130c
+      name: inrtPwrCtrStStrmBrstNack
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.4.2.1.8.0
+      key: inrtPwrCtrStStrmBrstNack
+      delay: 60s
+      status: DISABLED
+    - uuid: a7d37eb7fd43476ba8c65c5a8e270622
+      name: irtBstProcStCrcErrOAllocBst
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.2.3.1.5.0
+      key: irtBstProcStCrcErrOAllocBst
+      delay: 60s
+    - uuid: bb94602f7b484adfb09b4c31e779bc10
+      name: netwkStSatlliteGwPktSent
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.9.3.0
+      key: netwkStSatlliteGwPktSent
+      delay: 60s
+      status: DISABLED
+    - uuid: edbe65d9c7ce41e78d0e8897522c9914
+      name: netwkStSendToUnspeclpGw
+      type: SNMP_AGENT
+      snmp_oid: .1.3.6.1.4.1.303.3.3.45.7.2.9.15.0
+      key: netwkStSendToUnspeclpGw
+      delay: 60s
+      status: DISABLED
+    discovery_rules:
+    - uuid: 968b61e3b9c54bd29679607f18dd6409
+      name: GetInrtGrponlyStat
+      type: HTTP_AGENT
+      key: GetInrtGrpStat
+      delay: 60s
+      status: DISABLED
+      item_prototypes:
+      - uuid: 4975a5c1485b4bdbbcf59a636d0521f0
+        name: allocated - Group Sym{#GROUP_RATE} IG NO:- {#GROUP_NUMBER}
+        type: HTTP_AGENT
+        key: inroute.allocated[{#GROUP_NUMBER}]
+        value_type: FLOAT
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[*].AllocatedBitsPerSecond.first()
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        headers:
+        - name: Content-Type
+          value: application/json
+      - uuid: 44dadbd4ac6d4c5f91e809533761dd50
+        name: Leftover  - Group Sym{#GROUP_RATE} IG NO:- {#GROUP_NUMBER}
+        type: HTTP_AGENT
+        key: inroute.leftoverbits[{#GROUP_NUMBER}]
+        value_type: CHAR
+        trends: '0'
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[*].LeftoverBitsPerSecond.first()
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        headers:
+        - name: Content-Type
+          value: application/json
+      - uuid: 8c686f6cfe91452696191e9d44f11819
+        name: LeftoverUtilization  - Group Sym{#GROUP_RATE} IG NO:- {#GROUP_NUMBER}
+        type: HTTP_AGENT
+        key: inroute.LeftoverUtilization[{#GROUP_NUMBER}]
+        value_type: CHAR
+        trends: '0'
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[*].LeftoverUtilization
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        headers:
+        - name: Content-Type
+          value: application/json
+        tags:
+        - tag: inroute Group
+      - uuid: 2737b8349fa8435c835c9e54c391807a
+        name: OverallUtilization - Group Sym{#GROUP_RATE} IG NO:- {#GROUP_NUMBER}
+        type: HTTP_AGENT
+        key: inroute.OverallUtilization[{#GROUP_NUMBER}]
+        value_type: FLOAT
+        units: '%'
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[*].OverallUtilization.first()
+        - type: JAVASCRIPT
+          parameters:
+          - return parseFloat(value).toFixed(2);
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        headers:
+        - name: Content-Type
+          value: application/json
+        tags:
+        - tag: Inroute Group
+      url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+      headers:
+      - name: Content-Type
+        value: application/json
+      lld_macro_paths:
+      - lld_macro: '{#BEAM_ID}'
+        path: $.BeamId
+      - lld_macro: '{#GROUPID}'
+        path: $.stats.Groups[*]
+      - lld_macro: '{#GROUP_NUMBER}'
+        path: $.Number
+      - lld_macro: '{#GROUP_RATE}'
+        path: $.SymbolRate
+    - uuid: 8c74517280e44836b7c3f66d7d056cea
+      name: IGM Inroute Group Discovery
+      type: SNMP_AGENT
+      snmp_oid: discovery[{#GRPBWINDX},.1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.1]
+      key: groupBandwidthStIndex
+      delay: 1h
+      description: SNMP OID - point to  index groupBandwidthStIndex
+      item_prototypes:
+      - uuid: d2192173eefa4c869ec6b0b2e5a74a49
+        name: Inroute Group Number :{#GRPBWINDX} - FEC 8/9
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.10.{#SNMPINDEX}
+        key: groupBandwidthStNumberOfTerminalsAtEightNinthFec.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      - uuid: a3909096ad724731b127f7148011190c
+        name: Inroute Group Number :{#GRPBWINDX} - FEC 4/5
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.9.{#SNMPINDEX}
+        key: groupBandwidthStNumberOfTerminalsAtFourFifthFec.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      - uuid: c37331b2691d4ea99a1ef8640d694241
+        name: Inroute Group Number :{#GRPBWINDX} - FEC 9/10
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.11.{#SNMPINDEX}
+        key: groupBandwidthStNumberOfTerminalsAtNineTenthFec.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      - uuid: 75c9bca3711e4b0590b61e2c972bff24
+        name: Inroute Group Number :{#GRPBWINDX} - FEC 1/2
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.7.{#SNMPINDEX}
+        key: groupBandwidthStNumberOfTerminalsAtOneHalfFec.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      - uuid: 443694b98ace4f1980e5b1c59f3895de
+        name: Inroute Group Number :{#GRPBWINDX} - FEC 2/3
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.8.{#SNMPINDEX}
+        key: groupBandwidthStNumberOfTerminalsAtTwoThirdFec.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      - uuid: c6bb885a1c794b61afc2dcb416532fcc
+        name: Inroute Group Number :{#GRPBWINDX} - Ranging Terminals
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.12.{#SNMPINDEX}
+        key: groupBandwidthStTotalNumberOfRangingTerminals.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      - uuid: 18357d3578984843b4522fafc894e0aa
+        name: Inroute Group Number :{#GRPBWINDX} - NumberOfTerminals
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.12.5.1.5.{#SNMPINDEX}
+        key: groupNumberOfTerminals.[{#SNMPINDEX}]
+      - uuid: f4c45078c7444ec197563e7d1f357447
+        name: Inroute Group Power Control Number :{#GRPBWINDX}
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.4.1.1.4.{#SNMPINDEX}
+        key: groupPowerControlStStreamErrorRate.[{#SNMPINDEX}]
+        value_type: FLOAT
+        status: DISABLED
+        discover: NO_DISCOVER
+        description: Group level stream error rate collected in a interval.
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      graph_prototypes:
+      - uuid: e43ea756b0234fce83134728eca33382
+        name: 'Inroute Group {#GRPBWINDX}: Terminal'
+        graph_items:
+        - sortorder: '1'
+          color: F63100
+          item:
+            host: J3IGM
+            key: groupNumberOfTerminals.[{#SNMPINDEX}]
+        - sortorder: '2'
+          color: 00FF00
+          item:
+            host: J3IGM
+            key: groupBandwidthStNumberOfTerminalsAtOneHalfFec.[{#SNMPINDEX}]
+        - sortorder: '3'
+          color: 2774A4
+          item:
+            host: J3IGM
+            key: groupBandwidthStNumberOfTerminalsAtTwoThirdFec.[{#SNMPINDEX}]
+        - sortorder: '4'
+          color: F7941D
+          item:
+            host: J3IGM
+            key: groupBandwidthStNumberOfTerminalsAtFourFifthFec.[{#SNMPINDEX}]
+        - sortorder: '5'
+          color: FC6EA3
+          item:
+            host: J3IGM
+            key: groupBandwidthStNumberOfTerminalsAtEightNinthFec.[{#SNMPINDEX}]
+        - sortorder: '6'
+          color: 6C59DC
+          item:
+            host: J3IGM
+            key: groupBandwidthStNumberOfTerminalsAtNineTenthFec.[{#SNMPINDEX}]
+        - sortorder: '7'
+          color: C7A72D
+          item:
+            host: J3IGM
+            key: groupBandwidthStTotalNumberOfRangingTerminals.[{#SNMPINDEX}]
+      - uuid: 5438a53b756f476faf8eb523de284162
+        name: 'Inroute Group {#GRPPCBWINDX}: Terminal'
+        graph_items:
+        - sortorder: '1'
+          color: FF0000
+          item:
+            host: J3IGM
+            key: groupPowerControlStStreamErrorRate.[{#SNMPINDEX}]
+    - uuid: a0982faf2a86477e908b75bb380e5883
+      name: IGM Inroute Group Burst Processor Discovery
+      type: SNMP_AGENT
+      snmp_oid: discovery[{#GRPBPINDX},.1.3.6.1.4.1.303.3.3.45.7.2.2.2.1.1]
+      key: groupBurstProcessorStGroupIndex
+      delay: 1h
+      description: SNMP OID - point to  index groupBurstProcessorStGroupIndex
+      item_prototypes:
+      - uuid: fc54c25b83b8487d9bd14890faa2b7b8
+        name: IGM Inroute Group BP Number :{#GRPBPINDX} - Allocated Missed Bursts
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.2.2.1.7.{#SNMPINDEX}
+        key: groupBurstProcessorAllocatedMissedBursts.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      - uuid: 21422c16cd214985a5b0236577c6b7fe
+        name: IGM Inroute Group BP Number :{#GRPBPINDX} - Burst Throughput
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.2.2.1.17.{#SNMPINDEX}
+        key: groupBurstProcessorBurstThroughput.[{#SNMPINDEX}]
+        preprocessing:
+        - type: MULTIPLIER
+          parameters:
+          - '1.6'
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      - uuid: 7e823184185945ce8cf94acc524b184a
+        name: IGM Inroute Group BP Number :{#GRPBPINDX} - Unallocated Missed Bursts
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.2.2.1.8.{#SNMPINDEX}
+        key: groupBurstProcessorUnallocatedMissedBursts.[{#SNMPINDEX}]
+        status: DISABLED
+        discover: NO_DISCOVER
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      - uuid: 5386ba027b074cca823777e36bc9797b
+        name: IGM Inroute Group BP Number :{#GRPBPINDX} - User Throughput
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.2.2.1.18.{#SNMPINDEX}
+        key: groupBurstProcessorUserThroughput.[{#SNMPINDEX}]
+        preprocessing:
+        - type: MULTIPLIER
+          parameters:
+          - '1.6'
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+    - uuid: 6cd81961d3844bab929115d3fc42e65c
+      name: IGM Inroute Group Power Control Discovery
+      type: SNMP_AGENT
+      snmp_oid: discovery[{#GRPPCBWINDX},1.3.6.1.4.1.303.3.3.45.7.2.4.1.1.1]
+      key: groupPowerControlStIndex
+      delay: 1h
+      description: SNMP OID - point to  index groupPowerControlStIndex
+      item_prototypes:
+      - uuid: d0798eeb1be0460eb9b55a1dcafcaa7d
+        name: IGM Inroute Group Power Control Number :{#GRPPCBWINDX}
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.4.1.1.4.{#SNMPINDEX}
+        key: IGMgroupPowerControlStStreamErrorRate.[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: Application
+          value: IGM Inroute Group Application
+      graph_prototypes:
+      - uuid: 0682064200054e46bf72a706e8743306
+        name: 'IGM Inroute Group {#GRPPCBWINDX}: Stream Error Rate'
+        graph_items:
+        - sortorder: '1'
+          color: 199C0D
+          item:
+            host: J3IGM
+            key: IGMgroupPowerControlStStreamErrorRate.[{#SNMPINDEX}]
+    - uuid: 8309deb9e9db4ae1bc2f1e8c29de2302
+      name: IGM Inroute Set Discovery
+      type: SNMP_AGENT
+      snmp_oid: discovery[{#IRSETINDX},1.3.6.1.4.1.303.3.3.45.7.2.14.1.1.1]
+      key: inrouteSetStIndex
+      delay: 1h
+      description: SNMP OID to point to inrouteSetStIndex
+      item_prototypes:
+      - uuid: d7662ffb75e34f868289b1775d0e7211
+        name: IGM Inroute Set Active Terminals Number :{#IRSETINDX}
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.14.1.1.7.{#SNMPINDEX}
+        key: inrouteSetStActiveTerminals.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Set Application
+        trigger_prototypes:
+        - uuid: 9d9d4cb07d824b16a44ee6e9612192ec
+          expression: last(/J3IGM/inrouteSetStActiveTerminals.[{#SNMPINDEX}])>0 and
+            last(/J3IGM/inrouteSetStActiveTerminals.[{#SNMPINDEX}])<=(last(/J3IGM/inrouteSetStActiveTerminals.[{#SNMPINDEX}],#1))*0.5
+          name: IGM Active Terminals Number :{#IRSETINDX} less than 50% From Last
+            count
+          priority: WARNING
+          tags:
+          - tag: application
+            value: terminal threshold
+      - uuid: a1f16faab2644a16a4e4300977ec710a
+        name: IGM Inroute Set Total Allocated Bytes Number :{#IRSETINDX}
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.14.1.1.8.{#SNMPINDEX}
+        key: inrouteSetStTotalAllocatedBytes.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Set Application
+      - uuid: d90806dd7fd24c0ba5753bf098c05ab5
+        name: IGM Inroute Set Total User Content Bytes Number :{#IRSETINDX}
+        type: SNMP_AGENT
+        snmp_oid: 1.3.6.1.4.1.303.3.3.45.7.2.14.1.1.6.{#SNMPINDEX}
+        key: inrouteSetStTotalUserContentBytes.[{#SNMPINDEX}]
+        tags:
+        - tag: Application
+          value: IGM Inroute Set Application
+      graph_prototypes:
+      - uuid: 2b162f675a944294ae4b165e38a61e6d
+        name: 'IGM Inroute Set {#IRSETINDX}: BW Usage'
+        graph_items:
+        - sortorder: '1'
+          color: F63100
+          item:
+            host: J3IGM
+            key: inrouteSetStTotalAllocatedBytes.[{#SNMPINDEX}]
+        - sortorder: '2'
+          color: 2774A4
+          item:
+            host: J3IGM
+            key: inrouteSetStTotalUserContentBytes.[{#SNMPINDEX}]
+    - uuid: 9144f760b6884875bdfb34051cc85d3a
+      name: DiscoverIGM
+      type: SNMP_AGENT
+      snmp_oid: discovery[{#SNMPVALUE},SNMPv2-MIB::sysDescr
+      key: JupIGM
+      delay: 30s
+      status: DISABLED
+    macros:
+    - macro: '{$NOC_SNMP_COMMUNITY}'
+      value: jupnocro

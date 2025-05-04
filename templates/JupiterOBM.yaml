@@ -1,0 +1,23 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: Templates/HughesJ3
+  - uuid: 4cd2a1eaedcc4e5995d5d787bbc3971d
+    name: Templates/HughesJupiter
+  templates:
+  - uuid: 01e94895b11d43379f91c04e1e8b9f4c
+    template: JupiterOBM
+    name: JupiterOBM
+    vendor:
+      name: Hughes Network System LLC
+      version: 7.0-0
+    templates:
+    - name: Linux by SNMP
+    groups:
+    - name: Templates/HughesJ3
+    - name: Templates/HughesJupiter
+    macros:
+    - macro: '{$GW_COMMUNITY}'
+      value: gwjupro
+      description: gw snmp RO

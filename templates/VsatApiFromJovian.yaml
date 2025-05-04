@@ -1,0 +1,172 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: a44bc2aad070448199f190901fa0915d
+    name: Templates/HughesJupiterGW
+  templates:
+  - uuid: 06e89ae7667944da977482ad35a18962
+    template: VsatApiFromJovian
+    name: VSATStatusCount
+    groups:
+    - name: Templates/HughesJupiterGW
+    items:
+    - uuid: 9b3eb2405faf4e4885944ae970cd7f65
+      name: VsatStatusCfg
+      type: HTTP_AGENT
+      key: CountByStatusCfg.vsat
+      value_type: TEXT
+      trends: '0'
+      url: https://{HOST.IP}/NMSAPI/vsats/countByStatusCfg
+      query_fields:
+      - name: showAll
+        value: 'true'
+      - name: gwId
+        value: '0'
+      headers:
+      - name: Content-Type
+        value: application/json
+      - name: Authorization
+        value: '{$JOVIAN_API}'
+    - uuid: 0fc552ef9acf4af2a429702f90bc8dab
+      name: CriticalVsats
+      type: DEPENDENT
+      key: CriticalVsats
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.critical
+      master_item:
+        key: https.vsat.status
+    - uuid: 718bcc182d2e49beb038d154a6736414
+      name: VsatNewActivation
+      type: HTTP_AGENT
+      key: https.vsat.NewActivation
+      delay: 1m;h16
+      history: 90d
+      value_type: TEXT
+      trends: '0'
+      preprocessing:
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          // Parse the API response
+          var input = JSON.parse(value);
+
+          // Extract the date string and count from the API response
+          var dateString = input[0].date;
+          var count = input[0].count;
+
+          // Split the date string into its components (MM-DD-YYYY)
+          var dateParts = dateString.split("-");
+          var month = parseInt(dateParts[0], 10) - 1; // Subtract 1 because months are 0-indexed
+          var day = parseInt(dateParts[1], 10);
+          var year = parseInt(dateParts[2], 10);
+
+          // Create a Date object
+          var dateObject = new Date(year, month, day);
+
+          // Convert the Date object to Unix timestamp (seconds)
+          var epochTime = dateObject.getTime() / 1000; // Convert milliseconds to seconds
+
+          // Return the count with the correct timestamp format
+          return JSON.stringify({
+              "timestamp": epochTime,
+              "count": count
+          });
+
+      timeout: 60s
+      url: https://172.28.6.131/NMSAPI/vsats/newActivations
+      query_fields:
+      - name: numberOfDays
+        value: '0'
+      follow_redirects: NO
+      headers:
+      - name: Content-Type
+        value: application/json
+      - name: Authorization
+        value: '{$JOVIAN_API}'
+    - uuid: 1de58bba90fe4f8abae98612a38a94be
+      name: VsatStatus
+      type: HTTP_AGENT
+      key: https.vsat.status
+      history: 90d
+      value_type: TEXT
+      trends: '0'
+      timeout: 60s
+      url: https://172.28.6.131/NMSAPI/vsats/countByStatus
+      query_fields:
+      - name: showAll
+        value: 'true'
+      - name: gwId
+        value: '0'
+      - name: vnid
+        value: '0'
+      - name: beamID
+        value: '0'
+      follow_redirects: NO
+      headers:
+      - name: Content-Type
+        value: application/json
+      - name: Authorization
+        value: '{$JOVIAN_API}'
+    - uuid: 65c10029fcd046c38b54b38ffbc6c4f6
+      name: VsatStatus_Beam01
+      type: HTTP_AGENT
+      key: https.vsat.status.beam01
+      history: 90d
+      value_type: TEXT
+      trends: '0'
+      timeout: 60s
+      url: https://172.27.5.130/NMSAPI/vsats/countByStatus
+      query_fields:
+      - name: showAll
+        value: 'true'
+      - name: gwId
+        value: '0'
+      - name: beamID
+        value: '1'
+      follow_redirects: NO
+      headers:
+      - name: Content-Type
+        value: application/json
+      - name: Authorization
+        value: '{$JOVIAN_API}'
+    - uuid: a7dc47a7b8dc4e24a32fc05eb6f8a2ac
+      name: NormalVsats
+      type: DEPENDENT
+      key: NormalVsats
+      delay: '0'
+      history: 90d
+      units: count
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.normal
+      master_item:
+        key: https.vsat.status
+    - uuid: a3cb34df37bb43dfaefb471ad88f2c4d
+      name: preconfigured Terminal
+      type: DEPENDENT
+      key: vsat.countByStatusCfg.preconfigured
+      delay: '0'
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.preconfigured
+      master_item:
+        key: CountByStatusCfg.vsat
+  graphs:
+  - uuid: c959da90c8a844d7bf6ad142e8cebc94
+    name: VsatsUpandDown
+    graph_items:
+    - color: 199C0D
+      item:
+        host: VsatApiFromJovian
+        key: CriticalVsats
+    - sortorder: '1'
+      color: F63100
+      item:
+        host: VsatApiFromJovian
+        key: NormalVsats

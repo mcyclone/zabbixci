@@ -1,0 +1,435 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: Templates/HughesJ3
+  - uuid: 4cd2a1eaedcc4e5995d5d787bbc3971d
+    name: Templates/HughesJupiter
+  templates:
+  - uuid: 446d30458ca547fe8a323bd2a8561a87
+    template: J3CRO
+    name: J3CRO
+    templates:
+    - name: Linux by SNMP
+    groups:
+    - name: Templates/HughesJ3
+    - name: Templates/HughesJupiter
+    items:
+    - uuid: 44ebc75830c0416eb3abcff812a11020
+      name: TTR Error SNMP walk
+      type: SNMP_AGENT
+      snmp_oid: walk[.1.3.6.1.4.1.303.3.3.45.2.2.4.5.4]
+      key: ttrErrorStats
+      value_type: TEXT
+      trends: '0'
+    discovery_rules:
+    - uuid: c8738b84610442929960f207ac3b8237
+      name: CRO multioutroute FC  stats Discovery
+      type: SNMP_AGENT
+      snmp_oid: 
+        discovery[{#ORIDX},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.1,{#BID},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.2,{#ORNUM},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.3,{#EOBR},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.4,{#ANBR},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.5,{#ARBR},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.6,{#AOBR},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.7,{#ADBR},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.8,{#ENBR},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.9,{#CUP},1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.10]
+      key: fcStAllOtrtStatsEntry
+      delay: 10s
+      description: An entry in the multioutroute FC table.
+      item_prototypes:
+      - uuid: b8001ce5659f4c87a682f19de53df17c
+        name: 'CRO BeamID {#BID} OutrouteNum {#ORNUM} : Actual data bit rate'
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.8.{#SNMPINDEX}
+        key: ActualDataBitRate[{#SNMPINDEX}]
+        value_type: FLOAT
+        units: bps
+        preprocessing:
+        - type: MULTIPLIER
+          parameters:
+          - '1000'
+        tags:
+        - tag: CRO
+          value: FCSTATS
+      - uuid: a28e14a985a44ce5bfd3bb145b814055
+        name: CRO BeamID {#BID} OutrouteNum {#ORNUM} :Actual NRT bit rate
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.5.{#SNMPINDEX}
+        key: ActualNRTbitrate[{#SNMPINDEX}]
+        value_type: FLOAT
+        units: bps
+        preprocessing:
+        - type: MULTIPLIER
+          parameters:
+          - '1000'
+        tags:
+        - tag: CRO
+          value: FCSTATS
+      - uuid: fb20948d880d46a18fc7697587b18371
+        name: CRO BeamID {#BID} OutrouteNum {#ORNUM} :Actual overall bit rate
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.7.{#SNMPINDEX}
+        key: ActualOverallBitRate[{#SNMPINDEX}]
+        value_type: FLOAT
+        units: bps
+        preprocessing:
+        - type: MULTIPLIER
+          parameters:
+          - '1000'
+        tags:
+        - tag: CRO
+          value: FCSTATS
+      - uuid: 96aff78a2450452a995fdf881c4dd24b
+        name: CRO BeamID {#BID} OutrouteNum {#ORNUM} :Actual real time bit rate
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.6.{#SNMPINDEX}
+        key: ActualRtBitRate[{#SNMPINDEX}]
+        value_type: FLOAT
+        units: bps
+        preprocessing:
+        - type: MULTIPLIER
+          parameters:
+          - '1000'
+        tags:
+        - tag: CRO
+          value: FCSTATS
+      - uuid: 6d7053101b82489492d8c42eccf91be1
+        name: CRO BeamID {#BID} OutrouteNum {#ORNUM} :CRO Utilization Percentage
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.10.{#SNMPINDEX}
+        key: CroUtilizationPercentage[{#SNMPINDEX}]
+        value_type: FLOAT
+        units: '%'
+        preprocessing:
+        - type: JAVASCRIPT
+          parameters:
+          - return parseFloat(value).toFixed(2);
+        tags:
+        - tag: CRO
+          value: FCSTATS
+      - uuid: 7a34aa345a9142e3a82c9d8e05c9e7c8
+        name: CRO BeamID {#BID} OutrouteNum {#ORNUM} :Estimate NRT bit rate
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.4.9.1.9.{#SNMPINDEX}
+        key: EstNrtBitRate[{#SNMPINDEX}]
+        value_type: FLOAT
+        units: bps
+        preprocessing:
+        - type: MULTIPLIER
+          parameters:
+          - '1000'
+        tags:
+        - tag: CRO
+          value: FCSTATS
+    - uuid: 9f3559a0b5b043968832cdd1ee74fa71
+      name: TTR Error Stats Discovery
+      type: DEPENDENT
+      key: ttrErrorStats.discovery
+      delay: '0'
+      item_prototypes:
+      - uuid: 6d59fea15cf6421e83f835bbd7881585
+        name: Total number of TTR Bad sequence errors
+        type: DEPENDENT
+        key: ttrErStBadSequenceErrors[{#SNMPINDEX}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: SNMP_WALK_VALUE
+          parameters:
+          - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.2.{#SNMPINDEX}
+          - '0'
+        master_item:
+          key: ttrErrorStats
+        tags:
+        - tag: CRO
+          value: TTRERROR
+      - uuid: 8d0786eb259740d28214181896c48f78
+        name: Total number of TTR individual packet header error
+        type: DEPENDENT
+        key: ttrErStIndPktHdrErrors[{#SNMPINDEX}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: SNMP_WALK_VALUE
+          parameters:
+          - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.6.{#SNMPINDEX}
+          - '0'
+        master_item:
+          key: ttrErrorStats
+        tags:
+        - tag: CRO
+          value: TTRERROR
+      - uuid: 128cf72a66bf4ed6bd13fe9a8de2bd3f
+        name: Total number of TTR receive errors
+        type: DEPENDENT
+        key: ttrErStReceiveErrors[{#SNMPINDEX}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: SNMP_WALK_VALUE
+          parameters:
+          - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.4.{#SNMPINDEX}
+          - '0'
+        master_item:
+          key: ttrErrorStats
+        tags:
+        - tag: CRO
+          value: TTRERROR
+      - uuid: 35ff652d1c7d434580f70f92612b0235
+        name: Total number of TTR receive overruns
+        type: DEPENDENT
+        key: ttrErStReceiveOverruns[{#SNMPINDEX}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: SNMP_WALK_VALUE
+          parameters:
+          - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.3.{#SNMPINDEX}
+          - '0'
+        master_item:
+          key: ttrErrorStats
+        tags:
+        - tag: CRO
+          value: TTRERROR
+      - uuid: db49a68a5f6b4b66a4a6b06619060a7d
+        name: Total number of TTR sequence errors
+        type: DEPENDENT
+        key: ttrErStSequenceErrors[{#SNMPINDEX}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: SNMP_WALK_VALUE
+          parameters:
+          - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.1.{#SNMPINDEX}
+          - '0'
+        master_item:
+          key: ttrErrorStats
+        tags:
+        - tag: CRO
+          value: TTRERROR
+      - uuid: 352fc8201d124f4183f0095ead212e24
+        name: Total number of TTR header errors
+        type: DEPENDENT
+        key: ttrErStTtrHdrErrors[{#SNMPINDEX}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: SNMP_WALK_VALUE
+          parameters:
+          - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.5.{#SNMPINDEX}
+          - '0'
+        master_item:
+          key: ttrErrorStats
+        tags:
+        - tag: CRO
+          value: TTRERROR
+      - uuid: df4f6e80e1f646628462cfeb2c7ed677
+        name: Total number of TTR dropped due to congestion
+        type: DEPENDENT
+        key: ttrErStTtrsDropCongestion[{#SNMPINDEX}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: SNMP_WALK_VALUE
+          parameters:
+          - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.7.{#SNMPINDEX}
+          - '0'
+        master_item:
+          key: ttrErrorStats
+        tags:
+        - tag: CRO
+          value: TTRERROR
+      - uuid: 50bf75ea5af640579e88adf83c96eea3
+        name: TTR dropped no outroute sender ID
+        type: DEPENDENT
+        key: ttrErStTtrsDropNoSenderId[{#SNMPINDEX}]
+        delay: '0'
+        value_type: FLOAT
+        preprocessing:
+        - type: SNMP_WALK_VALUE
+          parameters:
+          - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.8.{#SNMPINDEX}
+          - '0'
+        master_item:
+          key: ttrErrorStats
+        tags:
+        - tag: CRO
+          value: TTRERROR
+      master_item:
+        key: ttrErrorStats
+      preprocessing:
+      - type: SNMP_WALK_TO_JSON
+        parameters:
+        - '{#SequenceErrors}'
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.1
+        - '0'
+        - '{#BadSequenceErrors}'
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.2
+        - '0'
+        - '{#ReceiveOverruns}'
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.3
+        - '0'
+        - '{#ReceiveErrors}'
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.4
+        - '0'
+        - '{#TtrHdrErrors}'
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.5
+        - '0'
+        - '{#IndPktHdrErrors}'
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.6
+        - '0'
+        - '{#TtrsDropCongestion}'
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.7
+        - '0'
+        - '{#TtrsDropNoSenderId}'
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.4.8
+        - '0'
+    - uuid: 8bfa2398e37448ee871fde0566f4cc82
+      name: CRO TTR Overall Stats Discovery
+      type: SNMP_AGENT
+      snmp_oid: walk[1.3.6.1.4.1.303.3.3.45.2.2.4.5.1]
+      key: ttrOverallStatsi.discovery
+      delay: 5m
+      enabled_lifetime_type: DISABLE_AFTER
+      enabled_lifetime: 1h
+      item_prototypes:
+      - uuid: 12ad4ea0a0bd4596aabf7f5d1702bd2d
+        name: Average TTR Size received
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.4.{#SNMPINDEX}
+        key: cro.AvgTtrSize.[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTR
+      - uuid: 302ec14b52144ffb845ea47209248aac
+        name: Total TTRs Bit Rate
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.3.{#SNMPINDEX}
+        key: cro.TtrBitRate.[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTR
+      - uuid: 7c9ff9a276074aab80de291dfed04852
+        name: Current TTR Buffers in use
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.7.{#SNMPINDEX}
+        key: cro.TtrBuffersInUse.[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTR
+      - uuid: a8cef7d22c954f37b3a06cef23cc7333
+        name: Current TTR Bytes queued
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.6.{#SNMPINDEX}
+        key: cro.ttrOvStBytesQueued.[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTR
+      - uuid: 567b31ec76bd47acbccfb660bcc91fa0
+        name: Overall Priority Queue no service events
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.8.{#SNMPINDEX}
+        key: cro.ttrOvStNoServiceEvents.[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTR
+      - uuid: 9da73b70c3d546a7a55821df1aec6da2
+        name: Current TTRs queued
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.5.{#SNMPINDEX}
+        key: cro.TtrsQueued.[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTR
+      - uuid: a4642e2814344e4bad2ca303f47922a6
+        name: Total TTRs Received
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.1.{#SNMPINDEX}
+        key: cro.TtrsReceived.[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTR
+      - uuid: 5180cd9d213745dd9b4b030f016735c9
+        name: Total TTRs Transmit
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.2.{#SNMPINDEX}
+        key: cro.TtrsTrnsmtd.[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTR
+      timeout: 60s
+      preprocessing:
+      - type: SNMP_WALK_TO_JSON
+        parameters:
+        - $.ttrOvStTotalTtrsReceived
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.1
+        - '0'
+        - ttrOvStTotalTtrsTrnsmtd
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.2
+        - '0'
+        - ttrOvStTtrBitRate
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.3
+        - '0'
+        - ttrOvStAvgTtrSize
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.4
+        - '0'
+        - ttrOvStTtrsQueued
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.5
+        - '0'
+        - ttrOvStBytesQueued
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.6
+        - '0'
+        - ttrOvStTtrBuffersInUse
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.7
+        - '0'
+        - ttrOvStNoServiceEvents
+        - .1.3.6.1.4.1.303.3.3.45.2.2.4.5.1.8
+        - '0'
+    - uuid: f8a57fb0ed0a4180bc72703053331110
+      name: CRO multioutroute TTR stats Discovery
+      type: SNMP_AGENT
+      snmp_oid: 
+        discovery[{#ORIDX},.1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.1,{#BID},.1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.2,{#ORNUM},.1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.3,{#TBR},.1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.4,{#TESSE},.1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.5,{#TESBSE},.1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.6,{#TDC},.1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.7,{#TDCL2},.1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.8]
+      key: ttrStAllOtrtStatsEntry
+      delay: 10s
+      description: An entry in the multioutroute FC table.
+      item_prototypes:
+      - uuid: 0a946423913a49538dd153aefb794b16
+        name: 'CRO BeamID {#BID} OutrouteNum {#ORNUM} : TTR bit rate'
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.4.{#SNMPINDEX}
+        key: TtrBitRate[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTRSTATS
+      - uuid: 06dc15906e0f4c60bd8cdcc7cbc98f58
+        name: 'CRO BeamID {#BID} OutrouteNum {#ORNUM} : Number of bad sequence errors'
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.6.{#SNMPINDEX}
+        key: TtrErStBadSequenceErrors[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTRSTATS
+      - uuid: 7adad6d2f7df448cb70eedcac14cdb81
+        name: 'CRO BeamID {#BID} OutrouteNum {#ORNUM} : TTR sequence errors'
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.5.{#SNMPINDEX}
+        key: TtrErStSequenceErrors[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTRSTATS
+      - uuid: ff9f51ef56334eb0bb66e650224d84b2
+        name: 'CRO BeamID {#BID} OutrouteNum {#ORNUM} : TTR drops due to level 2 congestion'
+        type: SNMP_AGENT
+        snmp_oid: .1.3.6.1.4.1.303.3.3.45.2.2.4.5.5.1.8.{#SNMPINDEX}
+        key: TtrsDropCongestionLevel2[{#SNMPINDEX}]
+        value_type: FLOAT
+        tags:
+        - tag: CRO
+          value: TTRSTATS

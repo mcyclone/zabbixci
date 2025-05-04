@@ -1,0 +1,651 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: Templates/HughesJ3
+  - uuid: 4cd2a1eaedcc4e5995d5d787bbc3971d
+    name: Templates/HughesJupiter
+  templates:
+  - uuid: 0584d19ab5614d1194ca6f9e6b8b68f6
+    template: OBM GwStats API Discovery
+    name: OBM GwStats API Discovery
+    description: This template will monitor the satelliteBits field in a JSON response
+      from the URL http://<fqdn>:8080/ibm/api/beam/stats/current.
+    groups:
+    - name: Templates/HughesJ3
+    - name: Templates/HughesJupiter
+    discovery_rules:
+    - uuid: bb3d20f2bee14beb9376e1d86adf04b1
+      name: Gateway Stats Discovery
+      type: HTTP_AGENT
+      key: Gateway.stats.discovery
+      lifetime: 30d
+      enabled_lifetime_type: DISABLE_NEVER
+      item_prototypes:
+      - uuid: 0047412a2cdb4e0a92b5025e198217f5
+        name: Foward assignmentBulk VNO {#VNOID}
+        type: HTTP_AGENT
+        key: assignmentBulk.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].assignmentBulk
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 85a13f52ff3d433ba5a0d4efcdd817e3
+        name: Foward assignmentInteractive VNO {#VNOID}
+        type: HTTP_AGENT
+        key: assignmentInteractive.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].assignmentInteractive
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 6e2d8b1e8e894f029531eae8eaee7193
+        name: Foward assignmentStreaming VNO {#VNOID}
+        type: HTTP_AGENT
+        key: assignmentStreaming.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].assignmentStreaming
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: a0445c40a8db4fe295c6804d106c7609
+        name: Foward cbrSubscription VNO {#VNOID}
+        type: HTTP_AGENT
+        key: cbrSubscription.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].cbrSubscription
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 72a556f1dcf5459a8e8dec0d487225cf
+        name: Foward cbrUsage VNO {#VNOID}
+        type: HTTP_AGENT
+        key: cbrUsage.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].cbrUsage
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: ae2f0c0adef242eca2831deda9aa5654
+        name: Foward demandBulk VNO {#VNOID}
+        type: HTTP_AGENT
+        key: demandBulk.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].demandBulk
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 1da2bfcd840c406d99f85a4ba79e781e
+        name: Foward demandInteractive VNO {#VNOID}
+        type: HTTP_AGENT
+        key: demandInteractive.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].demandInteractive
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 47911ed284bc455d9a19062beedaf1f6
+        name: Foward demandStreaming VNO {#VNOID}
+        type: HTTP_AGENT
+        key: demandStreaming.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].demandStreaming
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 349aa0d0e8344ce18d5349cad39ad843
+        name: Foward emaDemand VNO {#VNOID}
+        type: HTTP_AGENT
+        key: emaDemand.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].emaDemand
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: ebfe170416024088b4a57962151914db
+        name: Foward emaMaxSubscription VNO {#VNOID}
+        type: HTTP_AGENT
+        key: emaMaxSubscription.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].emaMaxSubscription
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 05f72d5e3772429e971ab8431d151eb8
+        name: Foward emaUsageVNO {#VNOID}
+        type: HTTP_AGENT
+        key: emaUsage.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].emaUsage
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 3bf1334ecd2c40ca98aac774930db0d9
+        name: Foward multicastOfferedLoad VNO {#VNOID}
+        type: HTTP_AGENT
+        key: multicastOfferedLoad.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].multicastOfferedLoad
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 9082d7ae8123409fb9a8e5325b3666dd
+        name: Foward multicastsatelliteBits VNO {#VNOID}
+        type: HTTP_AGENT
+        key: multicastsatelliteBits.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].multicastsatelliteBits
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: ee3bb1ed6b0d4c48bb80de27bb02d93e
+        name: Foward multicastSubscription VNO {#VNOID}
+        type: HTTP_AGENT
+        key: multicastSubscription.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].multicastSubscription
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: bab0c76eb7414cdf9f675d24580579c8
+        name: Foward offeredLoad VNO {#VNOID}
+        type: HTTP_AGENT
+        key: offeredLoad.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].offeredLoad
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: b45644da64964103817869d8f23331cc
+        name: Foward overallAssignment VNO {#VNOID}
+        type: HTTP_AGENT
+        key: overallAssignment.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].overallAssignment
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: b5d5c37ba122485bb877900fdb5b47aa
+        name: Foward overallDemand VNO {#VNOID}
+        type: HTTP_AGENT
+        key: overallDemand.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].overallDemand
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 35b12a4920184232bcd252a96ad1167f
+        name: Foward satelliteBits VNO {#VNOID}
+        type: HTTP_AGENT
+        key: satelliteBits.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].satelliteBits
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: b1625174bee84781869af1d8081631f9
+        name: Foward satelliteBitsBulk VNO {#VNOID}
+        type: HTTP_AGENT
+        key: satelliteBitsBulk.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].satelliteBitsBulk
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: b4d8205d5a954d0da9b5a423136de3c6
+        name: Foward satelliteBitsConversational VNO {#VNOID}
+        type: HTTP_AGENT
+        key: satelliteBitsConversational.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].satelliteBitsConversational
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: be9e147331fb46f68d32161d5981e061
+        name: Foward satelliteBitsInteractive VNO {#VNOID}
+        type: HTTP_AGENT
+        key: satelliteBitsInteractive.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].satelliteBitsInteractive
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 8e93cad395cd4bac971eee9d50df902c
+        name: Foward satelliteBitsStreaming VNO {#VNOID}
+        type: HTTP_AGENT
+        key: satelliteBitsStreaming.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].satelliteBitsStreaming
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 77a3280e30a7402ab72f1494ed74b572
+        name: Foward totalAssignBeamSub VNO {#VNOID}
+        type: HTTP_AGENT
+        key: totalAssignBeamSub.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].totalAssignBeamSub
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      - uuid: 930a237dd2024c93b7bb25151509be1d
+        name: Foward totalNum VNO {#VNOID}
+        type: HTTP_AGENT
+        key: totalNum.[VNO {#VNOID}]
+        delay: 30s
+        value_type: FLOAT
+        units: Mbps
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.data.items[?(@.vnoId ==  "{#VNOID}")].totalNum
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+        tags:
+        - tag: Forward
+          value: SatelliteBits
+        - tag: VNO
+          value: '{#VNOID}'
+      url: http://{HOST.CONN}:{$LLD_PORT}/obm/api/gateway/stats/current
+      follow_redirects: NO
+      lld_macro_paths:
+      - lld_macro: '{#ASSIGNMENTBULK}'
+        path: $.assignmentBulk
+      - lld_macro: '{#ASSIGNMENTINTERACTIVE}'
+        path: $.assignmentInteractive
+      - lld_macro: '{#ASSIGNMENTSTREAMING}'
+        path: $.assignmentStreaming
+      - lld_macro: '{#CBRUSAGE}'
+        path: $.cbrUsage
+      - lld_macro: '{#DEMANDBULK}'
+        path: $.demandBulk
+      - lld_macro: '{#DEMANDINTERACTIVE}'
+        path: $.demandInteractive
+      - lld_macro: '{#DEMANDSTREAMING}'
+        path: $.demandStreaming
+      - lld_macro: '{#DLMINTHRUSUBSCRIPTIONCAL}'
+        path: $.dlMinThruSubscriptionCal
+      - lld_macro: '{#DLMINTHRUSUBSCRIPTION}'
+        path: $.dlMinThruSubscription
+      - lld_macro: '{#DLTHRUSUBSCRIPTIONCAL}'
+        path: $.dlThruSubscriptionCal
+      - lld_macro: '{#DLTHRUSUBSCRIPTION}'
+        path: $.dlThruSubscription
+      - lld_macro: '{#EMADEMAND}'
+        path: $.emaDemand
+      - lld_macro: '{#EMAMAXSUB}'
+        path: $.emaMaxSubscription
+      - lld_macro: '{#EMAMINSUBSCRIPTION}'
+        path: $.emaMinSubscription
+      - lld_macro: '{#EMAUSAGE}'
+        path: $.emaUsage
+      - lld_macro: '{#MULTICASTOFFEREDLOAD}'
+        path: $.multicastOfferedLoad
+      - lld_macro: '{#MULTICASTSATELLITEBITS}'
+        path: $.multicastSatelliteBits
+      - lld_macro: '{#MULTICASTSUBSCRIPTION}'
+        path: $.multicastSubscription
+      - lld_macro: '{#OFFEREDLOAD}'
+        path: $.offeredLoad
+      - lld_macro: '{#OVERALLASSIGNMENT}'
+        path: $.overallAssignment
+      - lld_macro: '{#OVERALLDEMAND}'
+        path: $.overallDemand
+      - lld_macro: '{#SATELLITEBITSBULK}'
+        path: $.satelliteBitsBulk
+      - lld_macro: '{#SATELLITEBITSCONVERSATIONAL}'
+        path: $.satelliteBitsConversational
+      - lld_macro: '{#SATELLITEBITSINTERACTIVE}'
+        path: $.satelliteBitsInteractive
+      - lld_macro: '{#SATELLITEBITSSTREAMING}'
+        path: $.satelliteBitsStreaming
+      - lld_macro: '{#SATELLITEBITS}'
+        path: $.satelliteBits
+      - lld_macro: '{#VNOID}'
+        path: $.vnoId
+      - lld_macro: '{#VNOMODE}'
+        path: $.vnoMode
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.data.items[*]
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          var array = JSON.parse(value);
+          var output = [];
+
+          // Extracting "VnoId", "beamName", and "beamStats" values
+          if (array && Array.isArray(array) && array.length > 0) {
+              output = array.map(function(item) {
+                  return {
+                      "vnoId": item.vnoId,
+                      "vnoMode": item.vnoMode,
+          			"vnoSubscriptionModel":item.vnoSubscriptionModel,
+          			"dlMinThruSubscription": item.dlMinThruSubscription,
+                      "dlThruSubscription": item.dlThruSubscription,
+                      "dlMinThruSubscriptionCal": item.dlMinThruSubscriptionCal,
+                      "dlThruSubscriptionCal": item.dlThruSubscriptionCal,
+          			"emaMaxSubscription":item.emaMaxSubscription,
+                      "emaMinSubscription": item.emaMinSubscription,
+                      "emaUsage": item.emaUsage,
+                      "emaDemand": item.emaDemand,
+                      "overallDemand": item.overallDemand,
+          		    "demandInteractive": item.demandInteractive,
+          		    "demandStreaming": item.demandStreaming,
+          		    "demandBulk": item.demandBulk,
+          		    "overallAssignment": item.overallAssignment,
+          		    "assignmentInteractive": item.assignmentInteractive,
+          		    "assignmentStreaming": item.assignmentStreaming,
+          		    "assignmentBulk": item.assignmentBulk,
+          		    "offeredLoad": item.offeredLoad,
+          		    "satelliteBits": item.satelliteBits,
+          		    "satelliteBitsConversational": item.satelliteBitsConversational,
+          		    "satelliteBitsInteractive": item.satelliteBitsInteractive,
+          		    "satelliteBitsStreaming": item.satelliteBitsStreaming,
+          		    "satelliteBitsBulk": item.satelliteBitsBulk,
+          		    "cbrUsage": item.cbrUsage,
+          		    "multicastOfferedLoad": item.multicastOfferedLoad,
+          		    "multicastSatelliteBits": item.multicastSatelliteBits,
+          		    "multicastSubscription": item.multicastSubscription,
+          			"totalAssignBeamSub": item.totalAssignBeamSub,
+                      "totalNum": item.totalNum
+                      
+                  };
+              });
+          }
+
+          // Convert output to JSON string
+          var outputJSON = JSON.stringify(output);
+
+          // Return the JSON string
+          return outputJSON;
+
+          // 
+    macros:
+    - macro: '{$LLD_PORT}'
+      value: '8080'
+    - macro: '{$NSPID.MATCHES}'
+      value: .*
+    - macro: '{$NSPID.NOT_MATCHES}'
+      value: ^1$

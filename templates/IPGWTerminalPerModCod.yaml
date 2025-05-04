@@ -1,0 +1,1097 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: a44bc2aad070448199f190901fa0915d
+    name: Templates/HughesJupiterGW
+  templates:
+  - uuid: 7c05ca01b5da4322b37c61e3d8904b3b
+    template: IPGWTerminalPerModCod
+    name: IPGWTerminalPerModCod
+    groups:
+    - name: Templates/HughesJupiterGW
+    items:
+    - uuid: 14460888cabe45d2ab1b8c5c5582c9c7
+      name: 8PSK_eight_ninth
+      type: DEPENDENT
+      key: 8PSK_eight_ninth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.8PSK_eight_ninth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 459f6e47a37b4746a63edd314b86bd33
+      name: 8PSK_fifth_sixth
+      type: DEPENDENT
+      key: 8PSK_fifth_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.8PSK_fifth_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 340631aa25ae4ae0a65da5e8d2c4e360
+      name: 8PSK_nine_tenth
+      type: DEPENDENT
+      key: 8PSK_nine_tenth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.8PSK_nine_tenth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: e1e262ba11974995b69d64140a1c1bc5
+      name: 8PSK_thirteen_eighteenth
+      type: DEPENDENT
+      key: 8PSK_thirteen_eighteenth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.8PSK_thirteen_eighteenth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: ac6814cbf79d4cd99a041df04b8e8868
+      name: 8PSK_three_fifth
+      type: DEPENDENT
+      key: 8PSK_three_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.8PSK_three_fifth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 19f0e6ba112c40ed850bef660fae660a
+      name: 8PSK_three_fourth
+      type: DEPENDENT
+      key: 8PSK_three_fourth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.8PSK_three_fourth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 068b738a7ace4c6eae58602b7b8ad69a
+      name: 8PSK_twenty_five_thirty_sixth
+      type: DEPENDENT
+      key: 8PSK_twenty_five_thirty_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.8PSK_twenty_five_thirty_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 9a3d0f1e425f4a95abfb2a493e159d09
+      name: 8PSK_twenty_three_thirty_sixth
+      type: DEPENDENT
+      key: 8PSK_twenty_three_thirty_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.8PSK_twenty_three_thirty_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 7488452686eb4eaf822b1d4675a28db8
+      name: 8PSK_two_third
+      type: DEPENDENT
+      key: 8PSK_two_third
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.8PSK_two_third
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: 8PSK-2/3
+      - tag: Application
+        value: Modcode
+    - uuid: 5a22a1a5dec94c43b9591b7743e1bd18
+      name: 16APSK_five_sixth
+      type: DEPENDENT
+      key: 16APSK_five_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_five_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 8ef8e5eff3854b43a516a4d11dfbb34a
+      name: 16APSK_four_fifth
+      type: DEPENDENT
+      key: 16APSK_four_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_four_fifth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 7bd1a53dd7dc402db6a9c1893b507739
+      name: 16APSK_nine_tenth
+      type: DEPENDENT
+      key: 16APSK_nine_tenth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_nine_tenth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: a35912de899e47d99a7ab3682174e855
+      name: 16APSK_seven_ninth
+      type: DEPENDENT
+      key: 16APSK_seven_ninth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_seven_ninth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 88365166de5b4714b075e71c9cc74f73
+      name: 16APSK_thirteen_eighteenth
+      type: DEPENDENT
+      key: 16APSK_thirteen_eighteenth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_thirteen_eighteenth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 7f8fb2923db54c9487dc312e03f1173a
+      name: 16APSK_thirty_one_thirty_sixth
+      type: DEPENDENT
+      key: 16APSK_thirty_one_thirty_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_thirty_one_thirty_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: c22db982e010489190589eda72bc150e
+      name: 16APSK_three_fifth
+      type: DEPENDENT
+      key: 16APSK_three_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_three_fifth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 485c441ee24d4410a86e3f1427bcb8b0
+      name: 16APSK_three_fourth
+      type: DEPENDENT
+      key: 16APSK_three_fourth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_three_fourth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 41d54337875744e9bbfa5256cc984579
+      name: 16APSK_twenty_eight_fourty_fifth
+      type: DEPENDENT
+      key: 16APSK_twenty_eight_fourty_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_twenty_eight_fourty_fifth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: d09e7b583b5f41878e9b62fdf8698e82
+      name: 16APSK_twenty_five_thirty_sixth
+      type: DEPENDENT
+      key: 16APSK_twenty_five_thirty_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_twenty_five_thirty_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 3b677110715d407bb0c44aa4e2b59995
+      name: 16APSK_twenty_six_fourty_fifth
+      type: DEPENDENT
+      key: 16APSK_twenty_six_fourty_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.["16APSK_twenty_six_ fourty_fifth"]
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 35aa2be724804d209cf569fe00d94772
+      name: 16APSK_twenty_three_thirty_sixth
+      type: DEPENDENT
+      key: 16APSK_twenty_three_thirty_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_twenty_three_thirty_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 0286dc204f3440209540585ecbdd3e35
+      name: 16APSK_two_third
+      type: DEPENDENT
+      key: 16APSK_two_third
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.16APSK_two_third
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 0c3de0c8810644268e66346e3ae660a2
+      name: 32APSK_eight_ninth
+      type: DEPENDENT
+      key: 32APSK_eight_ninth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.32APSK_eight_ninth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: b55a674b24164af3940b0a8ca10c6f33
+      name: 32APSK_five_sixth
+      type: DEPENDENT
+      key: 32APSK_five_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.32APSK_five_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 246f2ad3ca744acb8aec082c81f3aa69
+      name: 32APSK_four_fifth
+      type: DEPENDENT
+      key: 32APSK_four_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.32APSK_four_fifth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: f2267a314ed44a4d86f2c83e08c01731
+      name: 32APSK_nine_tenth
+      type: DEPENDENT
+      key: 32APSK_nine_tenth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.32APSK_nine_tenth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 542333cb38b24602918ebb448be69b07
+      name: 32APSK_seven_ninth
+      type: DEPENDENT
+      key: 32APSK_seven_ninth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.32APSK_seven_ninth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 516e855472c64da18cdb8ccf33bf3a9e
+      name: 32APSK_thirteen_eighteenth
+      type: DEPENDENT
+      key: 32APSK_thirteen_eighteenth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.32APSK_thirteen_eighteenth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 1a8524bb01934e5f983b848416cf5314
+      name: 32APSK_three_fourth
+      type: DEPENDENT
+      key: 32APSK_three_fourth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.32APSK_three_fourth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: a1c8092b04024222aad67f1e29e0e828
+      name: 32APSK_twenty_five_thirty_sixth
+      type: DEPENDENT
+      key: 32APSK_twenty_five_thirty_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.32APSK_twenty_five_thirty_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 0c87ecb0164d450fa1f651de5be85af9
+      name: 32APSK_two_third
+      type: DEPENDENT
+      key: 32APSK_two_third
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.32APSK_two_third
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: a9651aef53c54f13b8507abbab367c0c
+      name: 64APSK_five_sixth
+      type: DEPENDENT
+      key: 64APSK_five_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.64APSK_five_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 9579fb0e462741faa541721d3b9e5915
+      name: 64APSK_four_fifth
+      type: DEPENDENT
+      key: 64APSK_four_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.64APSK_four_fifth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: be5e517cfd9847ca95cb97511c924874
+      name: 64APSK_seven_ninth
+      type: DEPENDENT
+      key: 64APSK_seven_ninth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.64APSK_seven_ninth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: aa67c0a371c04ce49a01a75456adb286
+      name: 64APSK_thirteen_eighteenth
+      type: DEPENDENT
+      key: 64APSK_thirteen_eighteenth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.64APSK_thirteen_eighteenth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: f75fdc486649491884499c92f26c5c8b
+      name: 64APSK_thirty_one_thirty_sixth
+      type: DEPENDENT
+      key: 64APSK_thirty_one_thirty_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.64APSK_thirty_one_thirty_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 6b3eb77c8f8a4ee3931d9911e169c849
+      name: 64APSK_three_fourth
+      type: DEPENDENT
+      key: 64APSK_three_fourth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.64APSK_three_fourth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 1ac49b0815ed478fa375d367593f2352
+      name: QPSK_eight_ninth
+      type: DEPENDENT
+      key: QPSK_eight_ninth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_eight_ninth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 5eda9ba31f5e4ee5b9e23458f7b9f7c2
+      name: QPSK_eleven_twenty
+      type: DEPENDENT
+      key: QPSK_eleven_twenty
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_eleven_twenty
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: cb12627cf91c4514b12a4b0868c02329
+      name: QPSK_fifth_sixth
+      type: DEPENDENT
+      key: QPSK_fifth_sixth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_fifth_sixth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: bbc5f284c34d4336a32b278853437120
+      name: QPSK_fourth_fifth
+      type: DEPENDENT
+      key: QPSK_fourth_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_fourth_fifth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: da7a718ca9884bc394b14e70c6b0c5f3
+      name: QPSK_nine_twenty
+      type: DEPENDENT
+      key: QPSK_nine_twenty
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_nine_twenty
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 91326e2bab2743fa838d2b7f65be10c1
+      name: QPSK_ninth_tenth
+      type: DEPENDENT
+      key: QPSK_ninth_tenth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_ninth_tenth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 7daf5e1455e14064a1a6172f923dea4b
+      name: QPSK_one_fourth
+      type: DEPENDENT
+      key: QPSK_one_fourth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_one_fourth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 35076ab2c2574f0688f434256ec1c462
+      name: QPSK_one_half
+      type: DEPENDENT
+      key: QPSK_one_half
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_one_half
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 295f95ab5cf84745b1b48fdc35dddf7d
+      name: QPSK_one_third
+      type: DEPENDENT
+      key: QPSK_one_third
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_one_third
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: eb56d41cd7f440b487a1c68269cd49ec
+      name: QPSK_three_fifth
+      type: DEPENDENT
+      key: QPSK_three_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_three_fifth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: de63df62e282418db5b7d1cbdf711cad
+      name: QPSK_three_fourth
+      type: DEPENDENT
+      key: QPSK_three_fourth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_three_fourth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 1285654574c74f4e9f98d16264b4b290
+      name: QPSK_two_fifth
+      type: DEPENDENT
+      key: QPSK_two_fifth
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_two_fifth
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: d41ba43bc4f24c3d9019fd3b902c7035
+      name: QPSK_two_third
+      type: DEPENDENT
+      key: QPSK_two_third
+      delay: '0'
+      history: 90d
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.QPSK_two_third
+      master_item:
+        key: TerminalPerModCod
+      tags:
+      - tag: Application
+        value: Modcode
+    - uuid: 997a8508ebb749a7a34f2a68322959e1
+      name: TerminalPerModCod
+      type: HTTP_AGENT
+      key: TerminalPerModCod
+      delay: 5m
+      history: 90d
+      value_type: CHAR
+      trends: '0'
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.data.stats.globalAcmStats.terminalsPerModcod
+      url: http://{HOST.DNS}:8080/cgi-bin/command.cgi
+      query_fields:
+      - name: command
+        value: '9002'
+  graphs:
+  - uuid: d82640b35b104d9fb3a23586bd45b5e0
+    name: ModCodTabular1
+    height: '900'
+    yaxismax: '0'
+    show_work_period: NO
+    show_triggers: NO
+    type: PIE
+    graph_items:
+    - sortorder: '1'
+      color: FC6EA3
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 8PSK_eight_ninth
+    - sortorder: '2'
+      color: 6C59DC
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 8PSK_fifth_sixth
+    - sortorder: '3'
+      color: C7A72D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 8PSK_nine_tenth
+    - sortorder: '4'
+      color: BA2A5D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 8PSK_thirteen_eighteenth
+    - sortorder: '5'
+      color: F230E0
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 8PSK_three_fifth
+    - sortorder: '6'
+      color: 5CCD18
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 8PSK_three_fourth
+    - sortorder: '7'
+      color: BB2A02
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 8PSK_twenty_five_thirty_sixth
+    - sortorder: '8'
+      color: AC41A5
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 8PSK_twenty_three_thirty_sixth
+    - sortorder: '9'
+      color: 89ABF8
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 8PSK_two_third
+    - sortorder: '10'
+      color: 7EC25C
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_five_sixth
+    - sortorder: '11'
+      color: 3165D5
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_four_fifth
+    - sortorder: '12'
+      color: 79A277
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_nine_tenth
+    - sortorder: '13'
+      color: AA73DE
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_seven_ninth
+    - sortorder: '14'
+      color: FD5434
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_thirteen_eighteenth
+    - sortorder: '15'
+      color: F21C3E
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_thirty_one_thirty_sixth
+    - sortorder: '16'
+      color: 87AC4D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_three_fifth
+    - sortorder: '17'
+      color: E89DF4
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_three_fourth
+    - sortorder: '18'
+      color: 199C0D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_twenty_eight_fourty_fifth
+    - sortorder: '19'
+      color: F63100
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_twenty_five_thirty_sixth
+    - sortorder: '20'
+      color: 2774A4
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_twenty_six_fourty_fifth
+    - sortorder: '21'
+      color: F7941D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_twenty_three_thirty_sixth
+    - sortorder: '22'
+      color: FC6EA3
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 16APSK_two_third
+    - sortorder: '23'
+      color: 6C59DC
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 32APSK_eight_ninth
+    - sortorder: '24'
+      color: C7A72D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 32APSK_five_sixth
+    - sortorder: '25'
+      color: BA2A5D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 32APSK_four_fifth
+  - uuid: f4076959767a4c3dbe1b38e123085ddd
+    name: ModCodTabular2
+    height: '900'
+    yaxismax: '0'
+    show_work_period: NO
+    show_triggers: NO
+    type: PIE
+    graph_items:
+    - sortorder: '1'
+      color: F230E0
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 32APSK_nine_tenth
+    - sortorder: '2'
+      color: 5CCD18
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 32APSK_seven_ninth
+    - sortorder: '3'
+      color: BB2A02
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 32APSK_thirteen_eighteenth
+    - sortorder: '4'
+      color: AC41A5
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 32APSK_three_fourth
+    - sortorder: '5'
+      color: 89ABF8
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 32APSK_twenty_five_thirty_sixth
+    - sortorder: '6'
+      color: 7EC25C
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 32APSK_two_third
+    - sortorder: '7'
+      color: 3165D5
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 64APSK_five_sixth
+    - sortorder: '8'
+      color: 79A277
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 64APSK_four_fifth
+    - sortorder: '9'
+      color: AA73DE
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 64APSK_seven_ninth
+    - sortorder: '10'
+      color: FD5434
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 64APSK_thirteen_eighteenth
+    - sortorder: '11'
+      color: F21C3E
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 64APSK_thirty_one_thirty_sixth
+    - sortorder: '12'
+      color: 87AC4D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: 64APSK_three_fourth
+    - sortorder: '13'
+      color: E89DF4
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_eight_ninth
+    - sortorder: '14'
+      color: 199C0D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_eleven_twenty
+    - sortorder: '15'
+      color: F63100
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_fifth_sixth
+    - sortorder: '16'
+      color: 2774A4
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_fourth_fifth
+    - sortorder: '17'
+      color: F7941D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_nine_twenty
+    - sortorder: '18'
+      color: FC6EA3
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_ninth_tenth
+    - sortorder: '19'
+      color: 6C59DC
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_one_fourth
+    - sortorder: '20'
+      color: C7A72D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_one_half
+    - sortorder: '21'
+      color: BA2A5D
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_one_third
+    - sortorder: '22'
+      color: F230E0
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_three_fifth
+    - sortorder: '23'
+      color: 5CCD18
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_three_fourth
+    - sortorder: '24'
+      color: BB2A02
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_two_fifth
+    - sortorder: '25'
+      color: AC41A5
+      calc_fnc: LAST
+      item:
+        host: IPGWTerminalPerModCod
+        key: QPSK_two_third

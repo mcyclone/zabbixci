@@ -1,0 +1,98 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: Templates/HughesJ3
+  templates:
+  - uuid: bd4650d52a8049d38daebede9ab0fee4
+    template: ceph-fuse-gateway volume
+    name: ceph-fuse-gateway volume
+    groups:
+    - name: Templates/HughesJ3
+    items:
+    - uuid: 0200cc3a09cd46d98b900f5edb01fb91
+      name: Ceph gateway volume avalaible
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.9999.8.1.102
+      key: ceph.gateway.volume.avalaible
+      value_type: FLOAT
+      units: GB
+    - uuid: 8cf9f99be10f4f3daa4c81c401a385f8
+      name: Ceph gateway volume used percentage
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.9999.8.1.103
+      key: ceph.gateway.volume.percentage
+      value_type: FLOAT
+      units: '%'
+      triggers:
+      - uuid: e7143a38b7c04f9db442ed4a2f171260
+        expression: last(/ceph-fuse-gateway volume/ceph.gateway.volume.percentage)>=60
+        name: Ceph gateway volume usage over 60%
+        priority: WARNING
+        manual_close: YES
+      - uuid: cb40c342e5ae43518cccb8b4d69e5cfc
+        expression: last(/ceph-fuse-gateway volume/ceph.gateway.volume.percentage)>=80
+        name: Ceph gateway volume usage over 80%
+        priority: HIGH
+        manual_close: YES
+      - uuid: 36acdc605ab74419a2f564fceb56b11e
+        expression: last(/ceph-fuse-gateway volume/ceph.gateway.volume.percentage)>=90
+        name: Ceph gateway volume usage over 90%
+        priority: DISASTER
+        manual_close: YES
+    - uuid: 4a28498e57bb427aa1a594cf2e933468
+      name: Ceph gateway volume total
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.9999.8.1.100
+      key: ceph.gateway.volume.total
+      value_type: FLOAT
+      units: GB
+    - uuid: a77040f5126c4138965b2e13f70de839
+      name: Ceph gateway volume used
+      type: SNMP_AGENT
+      snmp_oid: 1.3.6.1.4.1.9999.8.1.101
+      key: ceph.gateway.volume.used
+      value_type: FLOAT
+      units: GB
+    dashboards:
+    - uuid: 8bd5b289d3f7442ebafba56af3d0d281
+      name: New dashboard
+      pages:
+      - widgets:
+        - type: graph
+          width: '54'
+          height: '6'
+          fields:
+          - type: GRAPH
+            name: graphid.0
+            value:
+              host: ceph-fuse-gateway volume
+              name: Ceph gateway volume
+          - type: STRING
+            name: reference
+            value: RAUQZ
+  graphs:
+  - uuid: e070ca4386f04dcfa1617adfc6a79551
+    name: Ceph gateway volume
+    show_work_period: NO
+    show_triggers: NO
+    graph_items:
+    - color: 1A237E
+      calc_fnc: ALL
+      item:
+        host: ceph-fuse-gateway volume
+        key: ceph.gateway.volume.total
+    - sortorder: '1'
+      drawtype: FILLED_REGION
+      color: EF5350
+      calc_fnc: ALL
+      item:
+        host: ceph-fuse-gateway volume
+        key: ceph.gateway.volume.used
+    - sortorder: '2'
+      drawtype: GRADIENT_LINE
+      color: 00FF00
+      calc_fnc: ALL
+      item:
+        host: ceph-fuse-gateway volume
+        key: ceph.gateway.volume.avalaible

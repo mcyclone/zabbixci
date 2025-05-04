@@ -1,0 +1,688 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - uuid: 6a1e6ab4098547ad9896b1c7077fd1c8
+    name: Templates/HughesJ3
+  - uuid: 4cd2a1eaedcc4e5995d5d787bbc3971d
+    name: Templates/HughesJupiter
+  templates:
+  - uuid: 8f68c236b3004537bf7fc6ccd1675f3f
+    template: JupiterIGMApiDiscovery
+    name: JupiterIGMApiDiscovery
+    description: IGM group stats discovery
+    vendor:
+      name: Hughes Network System LLC
+      version: 7.0-0
+    groups:
+    - name: Templates/HughesJ3
+    - name: Templates/HughesJupiter
+    items:
+    - uuid: 61ce95230c914cc6ab02113b032472cd
+      name: IGMGroupStatsDicovery
+      type: HTTP_AGENT
+      key: IGMGroupStatsDicovery
+      history: '0'
+      value_type: TEXT
+      trends: '0'
+      timeout: 90s
+      url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+      headers:
+      - name: content-type
+        value: application/json
+    discovery_rules:
+    - uuid: af55414779a149e3803b7f4f21c784f5
+      name: InrouteGroupStats
+      type: HTTP_AGENT
+      key: Inroute.Groups.Stats
+      lifetime: 30d
+      enabled_lifetime_type: DISABLE_NEVER
+      item_prototypes:
+      - uuid: 94f344cb3ddb4fc984907aace2234c0e
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.ACBRBitsPerSecond
+        type: HTTP_AGENT
+        key: ACBRBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].ACBRBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: ACBRBitsPerSecond
+      - uuid: 76c1cf46c8e145ed8765792850b8a3cc
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.AdaptiveCBRUtilization
+        type: HTTP_AGENT
+        key: AdaptiveCBRUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].AdaptiveCBRUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: AdaptiveCBRUtilization
+      - uuid: 135132e216c3496ca1707db4f73622fa
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.AllocatedBitsPerSecond
+        type: HTTP_AGENT
+        key: AllocatedBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].AllocatedBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        headers:
+        - name: content-type
+          value: application/json
+        tags:
+        - tag: Bandwith
+          value: AllocatedBitsPerSecond
+      - uuid: 7d0eadbad07d4cf2bbcb02fbca94a4d9
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.BEBitsPerSecond
+        type: HTTP_AGENT
+        key: BEBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].BEBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: BEBitsPerSecond
+      - uuid: d8cb938dae4c446daa97059f01241cce
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.BEUtilization
+        type: HTTP_AGENT
+        key: BEUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].BEUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: BEUtilization
+      - uuid: 483d04621f6341ab89072b26ed0a9eb5
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.CBRBitsPerSecond
+        type: HTTP_AGENT
+        key: CBRBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].CBRBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: CBRBitsPerSecond
+      - uuid: f4f33bd2d4d546a3a774390289e07539
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.CBRUtilization
+        type: HTTP_AGENT
+        key: CBRUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].CBRUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: CBRUtilization
+      - uuid: 44221f612a7a44fcad7899276e277072
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.CIRBitsPerSecond
+        type: HTTP_AGENT
+        key: CIRBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].CIRBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: CIRBitsPerSecond
+      - uuid: 95ccffe48bda47c3a5d66545f1c173fa
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.CIRUtilization
+        type: HTTP_AGENT
+        key: CIRUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].CIRUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: CIRUtilization
+      - uuid: 15edaf14ea764433a99dea14152c0321
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.FairBitsPerSecond
+        type: HTTP_AGENT
+        key: FairBitsPerSecondPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].FairBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: FairBitsPerSecondPerSecond
+      - uuid: 2f2d63541474473ea89f7c8811fbe161
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.FairUtilization
+        type: HTTP_AGENT
+        key: FairUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].FairUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: FairUtilization
+      - uuid: 7a04b9eaed364b8a87cafdcdc43cc0dc
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.GuaranteedBitsPerSecond
+        type: HTTP_AGENT
+        key: GuaranteedBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].GuaranteedBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: GuaranteedBitsPerSecond
+      - uuid: 152286bfd04447df9e51fc337906aec9
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.IBEBitsPerSecond
+        type: HTTP_AGENT
+        key: IBEBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].IBEBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: IBEBitsPerSecond
+      - uuid: aee17eb281fc4667a915034489138f20
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.IPEBitsPerSecond
+        type: HTTP_AGENT
+        key: IPEBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].IPEBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: IPEBitsPerSecond
+      - uuid: 5297d20be0474cb48de1340830490155
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.LeftoverBitsPerSecond
+        type: HTTP_AGENT
+        key: LeftoverBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].LeftoverBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: LeftoverBitsPerSecond
+      - uuid: 02d6efb427e449d4b5c1291c788e1f6c
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.LeftoverUtilization
+        type: HTTP_AGENT
+        key: LeftoverUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")]..LeftoverUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: LeftoverUtilization
+      - uuid: dae4fb74558a4d918f0062aac5d43950
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.MinimumACBRUtilization
+        type: HTTP_AGENT
+        key: MinimumACBRUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].MinimumACBRUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: MinimumACBRUtilization
+      - uuid: a3dc36abc14c4dfbbd185c2cbc18cc33
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.MinimumCIRUtilization
+        type: HTTP_AGENT
+        key: MinimumCIRUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].MinimumCIRUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: MinimumCIRUtilization
+      - uuid: 18d79ab8d652410c9be178e3d7dce3a5
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.OverallUtilization
+        type: HTTP_AGENT
+        key: OverallUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].OverallUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: OverallUtilization
+      - uuid: 609f44cbda3c4272bf9b4014347e69f1
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.PDUBitsPerSecond
+        type: HTTP_AGENT
+        key: PDUBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].PDUBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: PDUBitsPerSecond
+      - uuid: bd12a72d76ae4937bf478792f19b91de
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.PeriodicBitsPerSecond
+        type: HTTP_AGENT
+        key: PeriodicBitsPerSecond.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: bps
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].PeriodicBitsPerSecond
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: PeriodicBitsPerSecond
+      - uuid: 3942e3663b284a46b78e22ca216e0cf2
+        name: Beam.{#BEAM}.InrouteGroup.{#GP}.SymRate{#SYMRATE}.PeriodicUtilization
+        type: HTTP_AGENT
+        key: PeriodicUtilization.group[{#GP},{#BEAM}]
+        value_type: FLOAT
+        units: '%'
+        description: |
+          incluede 
+          pre-processsing for 
+          allocation per Group
+          regex to remove []
+          javasript to conver 2 decimal point
+        preprocessing:
+        - type: JSONPATH
+          parameters:
+          - $.stats.Groups[?(@.Number == "{#GP}" && @.BeamId == "{#BEAM}")].PeriodicUtilization
+        - type: REGEX
+          parameters:
+          - \[(.*?)\]
+          - \1
+        - type: JAVASCRIPT
+          parameters:
+          - return(Math.round(value* 100) / 100)
+        timeout: 60s
+        url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+        tags:
+        - tag: Bandwith
+          value: PeriodicUtilization
+      timeout: 30s
+      url: http://{HOST.DNS}:8080/{HOST.HOST}/igm-gui.fcgi/api/groups
+      headers:
+      - name: content-type
+        value: application/json
+      lld_macro_paths:
+      - lld_macro: '{#BEAM}'
+        path: $.BeamId
+      - lld_macro: '{#GP}'
+        path: $.Number
+      - lld_macro: '{#SYMRATE}'
+        path: $.SymbolRate
+      preprocessing:
+      - type: JSONPATH
+        parameters:
+        - $.stats.Groups[*]
+      - type: JAVASCRIPT
+        parameters:
+        - |
+          var array = JSON.parse(value);
+          var output = [];
+
+          // Extracting "Number" or "SymbolRate" values
+          if (array && array.length > 0) {
+              output = array.map(function(item) {
+                  return {"Number": item.Number, "SymbolRate": item.SymbolRate, "BeamId": item.BeamId};
+              });
+          }
+
+          // Convert output to JSON string
+          return JSON.stringify(output);
