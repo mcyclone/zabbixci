@@ -40,7 +40,6 @@ zabbix_export:
         key: conf.dlMinThruSubscription[{#BEAM},VNO {#VNOID}]
         history: 90d
         value_type: FLOAT
-        trends: 90d
         units: Mbps
         preprocessing:
         - type: JSONPATH
@@ -64,7 +63,6 @@ zabbix_export:
         key: conf.dlThruSubscription[{#BEAM},VNO {#VNOID}]
         history: 90d
         value_type: FLOAT
-        trends: 90d
         units: Mbps
         preprocessing:
         - type: JSONPATH

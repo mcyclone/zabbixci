@@ -42,7 +42,6 @@ zabbix_export:
         key: beamCapacity[{#BEAM},NSP {#NSPID}]
         history: 90d
         value_type: FLOAT
-        trends: 90d
         units: Mbps
         preprocessing:
         - type: JSONPATH
@@ -69,7 +68,6 @@ zabbix_export:
         key: offeredLoad.[{#BEAM},NSP {#NSPID}]
         history: 90d
         value_type: FLOAT
-        trends: 90d
         units: Mbps
         preprocessing:
         - type: JSONPATH
@@ -96,7 +94,6 @@ zabbix_export:
         key: overallDemand.[{#BEAM},NSP {#NSPID}]
         history: 90d
         value_type: FLOAT
-        trends: 90d
         units: Mbps
         preprocessing:
         - type: JSONPATH
@@ -123,7 +120,6 @@ zabbix_export:
         key: satelliteBits.[{#BEAM},NSP {#NSPID}]
         history: 90d
         value_type: FLOAT
-        trends: 90d
         units: Mbps
         preprocessing:
         - type: JSONPATH

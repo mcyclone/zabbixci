@@ -39,7 +39,6 @@ zabbix_export:
       type: SNMP_AGENT
       snmp_oid: get[.1.3.6.1.4.1.46285.1.2.1.2.7]
       key: trimble.gnss.sv_used
-      trends: '0'
       triggers:
       - uuid: 0b006e445735415fb78e6eb80c127ebf
         expression: last(/Trimble Thunderbolt GNSS/trimble.gnss.sv_used)<4
